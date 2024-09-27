@@ -153,20 +153,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b939257719899d94da65e9241d38db37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 6183229974304848337, guid: 19f244443eb3a014d919e081754b3c4f, type: 3}
-  fireCast: {fileID: 6183229974304848337, guid: 19f244443eb3a014d919e081754b3c4f, type: 3}
-  windCast: {fileID: 2110950469720456732, guid: b8802c8e6449fc54499e5dad094204f3, type: 3}
-  lightningCast: {fileID: 1140003008017089399, guid: 14d14ab0ef2528842be095d26e95b82b, type: 3}
-  iceCast: {fileID: 2675547851349163170, guid: 2460f8df7e59c7c419fc492e3cff95e4, type: 3}
-  fireIce: {fileID: 1212679923401029666, guid: 66f143d79ac1efb4b8997ce84e5bbb8c, type: 3}
-  fireWind: {fileID: 8173048856951277102, guid: 3bfb6cda7f0a43947b8d39996d509e23, type: 3}
-  fireLightning: {fileID: 687243596309652957, guid: 836f4126766403f44a82ce354af8a0e9, type: 3}
-  iceWind: {fileID: 5720867910323791607, guid: 052398ad2c1712f4a9643b15ac14f0ed, type: 3}
-  iceLightning: {fileID: 5194687307169466494, guid: f8a84031f45c9ea43b69fd20392f38ff, type: 3}
-  windLightning: {fileID: 7813187472950963926, guid: 2b2932256fc4d4842a515ed9c51e45e3, type: 3}
-  timeSinceLastAttack: 0
-  comboTimer: 1
+  fireboltPrefab: {fileID: 6183229974304848337, guid: 19f244443eb3a014d919e081754b3c4f, type: 3}
+  flamethrowerPrefab: {fileID: 687243596309652957, guid: 836f4126766403f44a82ce354af8a0e9, type: 3}
+  tsunamiPrefab: {fileID: 1212679923401029666, guid: 66f143d79ac1efb4b8997ce84e5bbb8c, type: 3}
+  explosionPrefab: {fileID: 687243596309652957, guid: 836f4126766403f44a82ce354af8a0e9, type: 3}
+  iceProjectilePrefab: {fileID: 2675547851349163170, guid: 2460f8df7e59c7c419fc492e3cff95e4, type: 3}
+  freezeConePrefab: {fileID: 5194687307169466494, guid: f8a84031f45c9ea43b69fd20392f38ff, type: 3}
+  randomIceProjPrefab: {fileID: 5194687307169466494, guid: f8a84031f45c9ea43b69fd20392f38ff, type: 3}
+  lightningBoltPrefab: {fileID: 1140003008017089399, guid: 14d14ab0ef2528842be095d26e95b82b, type: 3}
+  lightningIceComboPrefab: {fileID: 5194687307169466494, guid: f8a84031f45c9ea43b69fd20392f38ff, type: 3}
   speed: 10
+  attackCooldown: 1
 --- !u!212 &239752195
 SpriteRenderer:
   m_ObjectHideFlags: 0
