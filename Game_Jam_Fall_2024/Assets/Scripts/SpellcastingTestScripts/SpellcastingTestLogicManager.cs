@@ -7,17 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class SpellcastingTestLogicManager : MonoBehaviour
 {
-    public Camera main_camera;
-    public List<Vector2> points; //all tracked points
-    public List<Vector2> corners; //corner points
-    public GameObject greenSquare;
-    public GameObject redSquare;
-    public string dirSequence; //0 - 7, up = 0, cw around
-    private Vector2 lastPos;
+    [SerializeField] private Camera main_camera;
+    [SerializeField] private List<Vector2> points; //all tracked points
+    [SerializeField] private List<Vector2> corners; //corner points
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private GameObject greenSquare;
+    [SerializeField] private GameObject redSquare;
+    [SerializeField] private string dirSequence; //0 - 7, up = 0, cw around
+    private Vector2 lastPos; //stores last mousePos to ensure only new mousePos are gathered
     private bool flag; //tracks whether rune is still being drawn
-    public float angleThreshold = 140f; //degrees, working value of 140
-    public float minDistance = 0.2f; //min distance between while finding corners, working value of 0.2
-    public float postMinDistance = 0.4f; //after corners have been found, removes corners closer than this distance, working value of 0.4
+    [SerializeField] private float angleThreshold = 140f; //degrees, working value of 140
+    [SerializeField] private float minDistance = 20.0f; //min distance between while finding corners, working value of 20
+    [SerializeField] private float postMinDistance = 40.0f; //after corners have been found, removes corners closer than this distance, working value of 40 - not necessary?
     private Dictionary<string, string> map = new Dictionary<string, string>(); //dirSequence, rune
 
     // Start is called before the first frame update
@@ -38,12 +39,13 @@ public class SpellcastingTestLogicManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0) && flag) //collects tracked points
         {
-            Vector2 mousePos = main_camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos = Input.mousePosition;
             if (mousePos != lastPos)
             {
                 points.Add(mousePos);
                 lastPos = mousePos;
-                Instantiate(greenSquare, mousePos, Quaternion.identity);
+                GameObject tempSquare = Instantiate(greenSquare, canvas.transform);
+                tempSquare.GetComponent<RectTransform>().position = new Vector3(main_camera.ScreenToWorldPoint(mousePos).x, main_camera.ScreenToWorldPoint(mousePos).y, 0);
             }
         }
         if (Input.GetKeyUp(KeyCode.Mouse0) && flag)
@@ -62,6 +64,24 @@ public class SpellcastingTestLogicManager : MonoBehaviour
                 Destroy(i);
             }
             dirSequence = "";
+        }
+
+        //camera movement
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            main_camera.transform.position = new Vector3(main_camera.transform.position.x, main_camera.transform.position.y + 1, main_camera.transform.position.z);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            main_camera.transform.position = new Vector3(main_camera.transform.position.x - 1, main_camera.transform.position.y, main_camera.transform.position.z);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            main_camera.transform.position = new Vector3(main_camera.transform.position.x, main_camera.transform.position.y - 1, main_camera.transform.position.z);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            main_camera.transform.position = new Vector3(main_camera.transform.position.x + 1, main_camera.transform.position.y, main_camera.transform.position.z);
         }
     }
 
@@ -134,7 +154,8 @@ public class SpellcastingTestLogicManager : MonoBehaviour
         }
         for (int k = 0; k < corners.Count; k++)
         {
-            Instantiate(redSquare, corners[k], Quaternion.identity);
+            GameObject tempSquare = Instantiate(redSquare, canvas.transform);
+            tempSquare.GetComponent<RectTransform>().position = new Vector3(main_camera.ScreenToWorldPoint(corners[k]).x, main_camera.ScreenToWorldPoint(corners[k]).y, 0);
         }
         GetDirections(corners);
     }
