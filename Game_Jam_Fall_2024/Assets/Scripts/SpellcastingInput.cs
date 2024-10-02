@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SpellcastingTestLogicManager : MonoBehaviour
+public class SpellcastingInput : MonoBehaviour
 {
     [SerializeField] private Camera main_camera;
     [SerializeField] private List<Vector2> points; //all tracked points
@@ -21,6 +21,7 @@ public class SpellcastingTestLogicManager : MonoBehaviour
     [SerializeField] private float postMinDistance = 40.0f; //after corners have been found, removes corners closer than this distance, working value of 40 - not necessary?
     private Dictionary<string, string> map = new Dictionary<string, string>(); //dirSequence, rune
 
+    [SerializeField] private Attack attackScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +29,11 @@ public class SpellcastingTestLogicManager : MonoBehaviour
         corners = new List<Vector2>();
         flag = true;
         dirSequence = "";
-        map.Add("136", "fire"); //add runes like this until i find a better way
-        map.Add("5317", "ice");
-        map.Add("363", "lightning");
+        map.Add("136", "Fire"); //add runes like this until i find a better way
+        map.Add("0246", "Ice");
+        map.Add("363", "Lightning");
+
+        attackScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Attack>();
     }
 
     // Update is called once per frame
@@ -54,15 +57,7 @@ public class SpellcastingTestLogicManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space)) //resets scene using space bar
         {
-            flag = true;
-            points = new List<Vector2>();
-            corners = new List<Vector2>();
-            var squares = GameObject.FindGameObjectsWithTag("square");
-            foreach (var i in squares)
-            {
-                Destroy(i);
-            }
-            dirSequence = "";
+            ClearDrawing();
         }
 
         //camera movement
@@ -143,10 +138,10 @@ public class SpellcastingTestLogicManager : MonoBehaviour
                 point3 = points[i];
             }
         }
-        corners.Add(points[points.Count-1]); //always add final point
-        for (int j = 0; j < corners.Count-1; j++)
+        corners.Add(points[points.Count - 1]); //always add final point
+        for (int j = 0; j < corners.Count - 1; j++)
         {
-            if (Vector2.Distance(corners[j], corners[j+1]) < postMinDistance) //if 2 corners are too close together after collecting them all, delete one
+            if (Vector2.Distance(corners[j], corners[j + 1]) < postMinDistance) //if 2 corners are too close together after collecting them all, delete one
             {
                 corners.Remove(corners[j]);
             }
@@ -166,7 +161,7 @@ public class SpellcastingTestLogicManager : MonoBehaviour
         {
             Vector2 point1 = corners[i];
             Vector2 point2 = corners[i + 1];
-            float angle = Mathf.Atan2(point2.y-point1.y, point2.x-point1.x) * Mathf.Rad2Deg; //returns -180 degrees to 180 degrees
+            float angle = Mathf.Atan2(point2.y - point1.y, point2.x - point1.x) * Mathf.Rad2Deg; //returns -180 degrees to 180 degrees
             //Debug.Log("angle: " + angle);
             if (angle >= 157.5)
             {
@@ -214,20 +209,21 @@ public class SpellcastingTestLogicManager : MonoBehaviour
     {
         if (map.ContainsKey(dirSequence)) //rune exists, cast spell here
         {
-            Debug.Log(map[dirSequence]);
+            attackScript.AddSpell(map[dirSequence]);
         }
         else //if no match, reverses the sequence and tries again
         {
             string reverseSequence = ReverseSequence(dirSequence);
             if (map.ContainsKey(reverseSequence)) //rune exists, cast spell here
             {
-                Debug.Log(map[reverseSequence]);
+                attackScript.AddSpell(map[reverseSequence]);
             }
             else //if no match again, rune doesn't exist
             {
                 Debug.Log("invalid shape");
             }
         }
+        Invoke("ClearDrawing", 1.0f);
     }
 
     //reverses series of directions by flipping both individual directions and their order
@@ -270,5 +266,18 @@ public class SpellcastingTestLogicManager : MonoBehaviour
             }
         }
         return output;
+    }
+
+    void ClearDrawing()
+    {
+        flag = true;
+        points = new List<Vector2>();
+        corners = new List<Vector2>();
+        var squares = GameObject.FindGameObjectsWithTag("square");
+        foreach (var i in squares)
+        {
+            Destroy(i);
+        }
+        dirSequence = "";
     }
 }

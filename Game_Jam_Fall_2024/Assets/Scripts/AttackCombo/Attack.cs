@@ -49,8 +49,8 @@ public class Attack : MonoBehaviour
             }
         }
 
-        // Confirm and cast spell when pressing '4'
-        if (Input.GetKeyDown("4") && spellBuffer.Count > 0)
+        // Confirm and cast spell when pressing right click
+        if (Input.GetMouseButtonDown(1) && spellBuffer.Count > 0)
         {
             CastSpell();
         }
@@ -203,5 +203,10 @@ public class Attack : MonoBehaviour
             InstantiateDirectionalProjectile(prefab, direction);
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public void AddSpell(string spellName)
+    {
+        spellBuffer.Add(spellName);
     }
 }
