@@ -157,13 +157,15 @@ MonoBehaviour:
   flamethrowerPrefab: {fileID: 687243596309652957, guid: 836f4126766403f44a82ce354af8a0e9, type: 3}
   tsunamiPrefab: {fileID: 1212679923401029666, guid: 66f143d79ac1efb4b8997ce84e5bbb8c, type: 3}
   explosionPrefab: {fileID: 687243596309652957, guid: 836f4126766403f44a82ce354af8a0e9, type: 3}
-  iceProjectilePrefab: {fileID: 2675547851349163170, guid: 2460f8df7e59c7c419fc492e3cff95e4, type: 3}
+  coldBeamPrefab: {fileID: 2675547851349163170, guid: 2460f8df7e59c7c419fc492e3cff95e4, type: 3}
   freezeConePrefab: {fileID: 5194687307169466494, guid: f8a84031f45c9ea43b69fd20392f38ff, type: 3}
   randomIceProjPrefab: {fileID: 5194687307169466494, guid: f8a84031f45c9ea43b69fd20392f38ff, type: 3}
   lightningBoltPrefab: {fileID: 1140003008017089399, guid: 14d14ab0ef2528842be095d26e95b82b, type: 3}
-  lightningIceComboPrefab: {fileID: 5194687307169466494, guid: f8a84031f45c9ea43b69fd20392f38ff, type: 3}
+  chainLightningPrefab: {fileID: 1140003008017089399, guid: 14d14ab0ef2528842be095d26e95b82b, type: 3}
   speed: 10
+  despawnTime: 3
   attackCooldown: 1
+  spellBuffer: []
 --- !u!212 &239752195
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -225,7 +227,7 @@ Transform:
   m_GameObject: {fileID: 239752193}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -2.94, z: 0}
+  m_LocalPosition: {x: -0.23, y: -1.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - square
+  - Environment
+  - PlayerProjectile
   layers:
   - Default
   - TransparentFX
