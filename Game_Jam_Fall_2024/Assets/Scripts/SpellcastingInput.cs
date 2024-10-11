@@ -21,6 +21,9 @@ public class SpellcastingInput : MonoBehaviour
     [SerializeField] private float postMinDistance = 40.0f; //after corners have been found, removes corners closer than this distance, working value of 40 - not necessary?
     private Dictionary<string, string> map = new Dictionary<string, string>(); //dirSequence, rune
 
+    [SerializeField] private float clickTime = 0f;
+    [SerializeField] private float clickThreshold = 0.5f;
+
     [SerializeField] private Attack attackScript;
     // Start is called before the first frame update
     void Start()
@@ -41,6 +44,7 @@ public class SpellcastingInput : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0) && flag) //collects tracked points
         {
+            clickTime += Time.deltaTime;
             Vector2 mousePos = Input.mousePosition;
             if (mousePos != lastPos)
             {
@@ -52,8 +56,15 @@ public class SpellcastingInput : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Mouse0) && flag)
         {
-            flag = false;
-            GetCorners(points);
+            if(clickTime >= clickThreshold && points.Count > 2)
+            {
+                flag = false;
+                GetCorners(points);
+            }
+            else{
+                clickTime = 0f;
+                ClearDrawing();
+            }
         }
         if (Input.GetKeyDown(KeyCode.Space)) //resets scene using space bar
         {

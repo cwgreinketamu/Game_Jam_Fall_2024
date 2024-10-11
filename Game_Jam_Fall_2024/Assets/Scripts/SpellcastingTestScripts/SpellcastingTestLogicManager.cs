@@ -21,6 +21,8 @@ public class SpellcastingTestLogicManager : MonoBehaviour
     [SerializeField] private float postMinDistance = 40.0f; //after corners have been found, removes corners closer than this distance, working value of 40 - not necessary?
     private Dictionary<string, string> map = new Dictionary<string, string>(); //dirSequence, rune
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -271,4 +273,6 @@ public class SpellcastingTestLogicManager : MonoBehaviour
         }
         return output;
     }
+
+
 }

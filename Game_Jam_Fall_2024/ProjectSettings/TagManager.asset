@@ -7,6 +7,7 @@ TagManager:
   - square
   - Environment
   - PlayerProjectile
+  - Enemy
   layers:
   - Default
   - TransparentFX
