@@ -147,10 +147,12 @@ namespace Pathfinding {
 		/// Should be called from EditorApplication.update
 		/// </summary>
 		static void UpdateCheckLoop () {
+			/*
 			// Go on until the update check has been completed
 			if (!CheckForUpdates()) {
 				EditorApplication.update -= UpdateCheckLoop;
 			}
+			*/
 		}
 
 		/// <summary>
@@ -159,6 +161,9 @@ namespace Pathfinding {
 		/// Returns: True if an update check is progressing (WWW request)
 		/// </summary>
 		static bool CheckForUpdates () {
+
+			return false;
+			/*
 			if (updateCheckDownload != null && updateCheckDownload.isDone) {
 				if (!string.IsNullOrEmpty(updateCheckDownload.error)) {
 					Debug.LogWarning("There was an error checking for updates to the A* Pathfinding Project\n" +
@@ -186,6 +191,7 @@ namespace Pathfinding {
 			}
 
 			return updateCheckDownload != null || minutesUntilUpdate < 10;
+			*/
 		}
 
 		static void DownloadVersionInfo () {

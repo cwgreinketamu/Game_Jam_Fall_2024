@@ -38,10 +38,6 @@ public abstract class EnemyBehavior : MonoBehaviour
         if (player != null && Vector3.Distance(transform.position, player.transform.position) < detectionRange)
         {
             aiPath.destination = player.transform.position; // Set destination to player
-            if (aiPath.reachedDestination)
-            {
-                AttackPlayer(); // Call the specific enemy's attack behavior
-            }
         }
     }
 
