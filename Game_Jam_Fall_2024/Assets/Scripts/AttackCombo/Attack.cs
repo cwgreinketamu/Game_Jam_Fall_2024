@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Attack : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class Attack : MonoBehaviour
     public float attackCooldown = 1.0f;
 
     public List<string> spellBuffer = new List<string>(); // Spell input buffer
+
+    [SerializeField] private Image screenBorder;
+    [SerializeField] private float borderEffectDuration;
 
     void Start()
     {
@@ -129,10 +133,13 @@ public class Attack : MonoBehaviour
             else if (sortedBuffer[0] == "Lightning" && sortedBuffer[1] == "Lightning")
             {
                 // Lightning Lightning - Chain lightning
-                InstantiateAtPosition(chainLightningPrefab, new Vector3(mousePos.x, mousePos.y, 0));
+                Vector3 positionVector = new Vector3(mousePos.x, mousePos.y, 0);
+                InstantiateAtPosition(chainLightningPrefab, positionVector);
+                CastChainLightning(positionVector);
                 Debug.Log("Cast Chain Lightning");
             }
         }
+
 
         spellBuffer.Clear();
         activeCombo = true;
@@ -209,4 +216,67 @@ public class Attack : MonoBehaviour
     {
         spellBuffer.Add(spellName);
     }
+
+    private void CastChainLightning(Vector3 positionVector)
+    {
+        Debug.Log("Casting chain lightning");
+        List<GameObject> hitEnemies = new List<GameObject>();
+        GameObject currentTarget = FindClosestEnemy(positionVector, hitEnemies);
+        for(int i = 0; i < 3; i++)
+        {
+            if (currentTarget == null)
+            {
+                break;
+            }
+            hitEnemies.Add(currentTarget);
+            currentTarget = FindClosestEnemy(currentTarget.transform.position, hitEnemies);
+
+            if (currentTarget != null)
+            {
+                InstantiateAtPosition(chainLightningPrefab, currentTarget.transform.position);
+                StartCoroutine(waiter());
+                Debug.Log("Chaining to: " + currentTarget.name);
+            }
+
+
+
+        }
+    }
+
+    IEnumerator waiter(){
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    private GameObject FindClosestEnemy(Vector3 position, List<GameObject> hitEnemies)
+    {
+        Debug.Log("Finding closest enemy");
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(position, 100.0f);
+        Debug.Log("Found " + hitColliders.Length + " colliders");
+        GameObject closestEnemy = null;
+        float closestDistance = float.MaxValue;
+
+        foreach(Collider2D collider in hitColliders)
+        {
+            Debug.Log("Checking collider: " + collider.gameObject.name);
+            GameObject enemy = collider.gameObject;
+            
+            if (enemy.CompareTag("Enemy") && !hitEnemies.Contains(enemy))
+            {
+                float distance = Vector3.Distance(position, enemy.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemy;
+                    Debug.Log("Found closest enemy: " + closestEnemy.name);
+                }
+            }
+
+        }
+
+        return closestEnemy;
+    }
+
+
+
+
 }
