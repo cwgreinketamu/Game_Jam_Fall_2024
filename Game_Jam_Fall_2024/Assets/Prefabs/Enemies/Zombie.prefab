@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1816748524987577594}
   - component: {fileID: 3871833547202134812}
   - component: {fileID: 4677430607103557657}
+  - component: {fileID: -1404638277601594289}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -263,3 +264,30 @@ MonoBehaviour:
   detectionRange: 5
   attackDamage: 10
   attackRange: 1.5
+--- !u!50 &-1404638277601594289
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5093934756730701539}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

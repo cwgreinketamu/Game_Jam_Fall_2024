@@ -22,8 +22,32 @@ public class Attack : MonoBehaviour
 
     public List<string> spellBuffer = new List<string>(); // Spell input buffer
 
-    [SerializeField] private Image screenBorder;
-    [SerializeField] private float borderEffectDuration;
+    public Texture2D fireCursor;
+    public Texture2D lightningCursor;
+    public Texture2D defaultCursor;
+    public Texture2D iceCursor;
+
+    public Texture2D firelightningCursor;
+
+    public Texture2D fireiceCursor;
+
+    public Texture2D icelightningCursor;
+
+    public Texture2D icefireCursor;
+
+    public Texture2D lightningiceCursor;
+
+    public Texture2D lightningfireCursor;
+
+    public Texture2D firefireCursor;
+
+    public Texture2D iceiceCursor;
+
+    public Texture2D lightninglightningCursor;
+
+
+    [SerializeField] private string prevSpell = "none";
+
 
     void Start()
     {
@@ -38,23 +62,29 @@ public class Attack : MonoBehaviour
         {
             if (Input.GetKeyDown("1"))
             {
-                spellBuffer.Add("Fire");
+                //spellBuffer.Add("Fire");
                 Debug.Log("Added Fire to spell buffer");
+                AddSpell("Fire");
             }
             else if (Input.GetKeyDown("2"))
             {
-                spellBuffer.Add("Lightning");
+                //spellBuffer.Add("Lightning");
                 Debug.Log("Added Lightning to spell buffer");
+                AddSpell("Lightning");
             }
             else if (Input.GetKeyDown("3"))
             {
-                spellBuffer.Add("Ice");
+                //spellBuffer.Add("Ice");
+                AddSpell("Ice");
                 Debug.Log("Added Ice to spell buffer");
             }
         }
+        if(spellBuffer.Count == 0){
+            ChangeCursor(defaultCursor);
+        }
 
         // Confirm and cast spell when pressing right click
-        if (Input.GetMouseButtonDown(1) && spellBuffer.Count > 0)
+        if (Input.GetMouseButtonDown(1) && spellBuffer.Count > 0 || Input.GetKeyDown("space") && spellBuffer.Count > 0)
         {
             CastSpell();
         }
@@ -215,6 +245,46 @@ public class Attack : MonoBehaviour
     public void AddSpell(string spellName)
     {
         spellBuffer.Add(spellName);
+        if(spellBuffer.Count > 1){
+            if(spellBuffer[0] == "Fire" && spellBuffer[1] == "Lightning"){
+                ChangeCursor(firelightningCursor);
+            }
+            else if(spellBuffer[0] == "Lightning" && spellBuffer[1] == "Fire"){
+                ChangeCursor(lightningfireCursor);
+            }
+            else if(spellBuffer[0] == "Fire" && spellBuffer[1] == "Ice"){
+                ChangeCursor(fireiceCursor);
+            }
+            else if(spellBuffer[0] == "Ice" && spellBuffer[1] == "Fire"){
+                ChangeCursor(icefireCursor);
+            }
+            else if(spellBuffer[0] == "Lightning" && spellBuffer[1] == "Ice"){
+                ChangeCursor(lightningiceCursor);
+            }
+            else if(spellBuffer[0] == "Ice" && spellBuffer[1] == "Lightning"){
+                ChangeCursor(icelightningCursor);
+            }
+            else if(spellBuffer[0] == "Fire" && spellBuffer[1] == "Fire"){
+                ChangeCursor(firefireCursor);
+            }
+            else if(spellBuffer[0] == "Ice" && spellBuffer[1] == "Ice"){
+                ChangeCursor(iceiceCursor);
+            }
+            else{
+                ChangeCursor(lightninglightningCursor);
+            }
+        }
+        else{
+            if(spellBuffer[0] == "Fire"){
+                ChangeCursor(fireCursor);
+            }
+            else if(spellBuffer[0] == "Lightning"){
+                ChangeCursor(lightningCursor);
+            }
+            else{
+                ChangeCursor(iceCursor);
+            }
+        }
     }
 
     private void CastChainLightning(Vector3 positionVector)
@@ -244,7 +314,7 @@ public class Attack : MonoBehaviour
     }
 
     IEnumerator waiter(){
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
     }
 
     private GameObject FindClosestEnemy(Vector3 position, List<GameObject> hitEnemies)
@@ -276,6 +346,10 @@ public class Attack : MonoBehaviour
         return closestEnemy;
     }
 
+    private void ChangeCursor(Texture2D cursorTexture)
+    {
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+    }
 
 
 

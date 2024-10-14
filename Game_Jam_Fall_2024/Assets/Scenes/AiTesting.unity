@@ -960,8 +960,20 @@ MonoBehaviour:
   despawnTime: 3
   attackCooldown: 1
   spellBuffer: []
-  screenBorder: {fileID: 0}
-  borderEffectDuration: 0
+  fireCursor: {fileID: 2800000, guid: e23abd4962197b540b3cc99c95e4bb4f, type: 3}
+  lightningCursor: {fileID: 2800000, guid: 5c7c362d0253b7c4d81e2e36daa26d01, type: 3}
+  defaultCursor: {fileID: 2800000, guid: 0c9f21efb34190247879648af0d332dd, type: 3}
+  iceCursor: {fileID: 2800000, guid: 11f9fb51713f66d46a9e97652dfb6cd5, type: 3}
+  firelightningCursor: {fileID: 2800000, guid: 14f52c688a10c6f41b8cb9aef228c12c, type: 3}
+  fireiceCursor: {fileID: 2800000, guid: a701df071929a7b4bb0626c71b7eef8d, type: 3}
+  icelightningCursor: {fileID: 2800000, guid: d9e57c6ec28e9ba48b20300c06c0a9d6, type: 3}
+  icefireCursor: {fileID: 2800000, guid: f49da20fb4452a9479191a6f03bd9210, type: 3}
+  lightningiceCursor: {fileID: 2800000, guid: 083b32d02e638604fbb6548add556276, type: 3}
+  lightningfireCursor: {fileID: 2800000, guid: f2c9a565969121d4eb50af6ec575bfab, type: 3}
+  firefireCursor: {fileID: 2800000, guid: e23abd4962197b540b3cc99c95e4bb4f, type: 3}
+  iceiceCursor: {fileID: 2800000, guid: 11f9fb51713f66d46a9e97652dfb6cd5, type: 3}
+  lightninglightningCursor: {fileID: 2800000, guid: 5c7c362d0253b7c4d81e2e36daa26d01, type: 3}
+  prevSpell: none
 --- !u!1 &1757869277
 GameObject:
   m_ObjectHideFlags: 0

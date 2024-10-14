@@ -72,22 +72,22 @@ public class SpellcastingInput : MonoBehaviour
         }
 
         //camera movement
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            main_camera.transform.position = new Vector3(main_camera.transform.position.x, main_camera.transform.position.y + 1, main_camera.transform.position.z);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            main_camera.transform.position = new Vector3(main_camera.transform.position.x - 1, main_camera.transform.position.y, main_camera.transform.position.z);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            main_camera.transform.position = new Vector3(main_camera.transform.position.x, main_camera.transform.position.y - 1, main_camera.transform.position.z);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            main_camera.transform.position = new Vector3(main_camera.transform.position.x + 1, main_camera.transform.position.y, main_camera.transform.position.z);
-        }
+        // if (Input.GetKeyDown(KeyCode.W))
+        // {
+        //     main_camera.transform.position = new Vector3(main_camera.transform.position.x, main_camera.transform.position.y + 1, main_camera.transform.position.z);
+        // }
+        // if (Input.GetKeyDown(KeyCode.A))
+        // {
+        //     main_camera.transform.position = new Vector3(main_camera.transform.position.x - 1, main_camera.transform.position.y, main_camera.transform.position.z);
+        // }
+        // if (Input.GetKeyDown(KeyCode.S))
+        // {
+        //     main_camera.transform.position = new Vector3(main_camera.transform.position.x, main_camera.transform.position.y - 1, main_camera.transform.position.z);
+        // }
+        // if (Input.GetKeyDown(KeyCode.D))
+        // {
+        //     main_camera.transform.position = new Vector3(main_camera.transform.position.x + 1, main_camera.transform.position.y, main_camera.transform.position.z);
+        // }
     }
 
     //takes vector of tracked points and converts them to a vector of corner points for GetDirection()
