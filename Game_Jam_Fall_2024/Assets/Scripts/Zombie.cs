@@ -15,7 +15,7 @@ public class Zombie : EnemyBehavior
         player = GameObject.FindGameObjectWithTag("Player").transform; // Find the player by tag
     }
 
-    /*
+    
     protected override void ConfigureMovement()
     {
         base.ConfigureMovement();
@@ -23,10 +23,11 @@ public class Zombie : EnemyBehavior
         aiPath.slowdownDistance = 3.0f;
         aiPath.endReachedDistance = 2.0f;
     }
-    */
+    
 
     protected override void Update()
     {
+        base.GetPosition(transform.position);
         base.Update();
         CheckAttack(); // Check if the zombie can attack the player
 

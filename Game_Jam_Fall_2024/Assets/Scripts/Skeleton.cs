@@ -7,16 +7,18 @@ public class Skeleton : EnemyBehavior
     public float attackCooldown = 2f; // Time between attacks
     private float lastAttackTime; // Tracks time since last attack
 
-    /*
+    public float movementSpeed = 3.0f; // Movement speed of the skeleton
+
+    
     protected override void ConfigureMovement()
     {
         base.ConfigureMovement();
         // Set skeleton-specific movement parameters
-        aiPath.maxSpeed = 3.0f; // Slower movement
+        aiPath.maxSpeed = movementSpeed; // Slower movement
         aiPath.slowdownDistance = 5.0f;
         aiPath.endReachedDistance = 4.5f; // Engage from a distance
     }
-    */
+    
 
     protected override void AttackPlayer()
     {
@@ -59,6 +61,7 @@ public class Skeleton : EnemyBehavior
 
     protected override void Update()
     {
+        base.GetPosition(transform.position);
         base.Update();
         HandleRangedAttack();
     }

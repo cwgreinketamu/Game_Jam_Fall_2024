@@ -8,6 +8,9 @@ TagManager:
   - Environment
   - PlayerProjectile
   - Enemy
+  - SolidAttack
+  - Fire
+  - Ice
   layers:
   - Default
   - TransparentFX

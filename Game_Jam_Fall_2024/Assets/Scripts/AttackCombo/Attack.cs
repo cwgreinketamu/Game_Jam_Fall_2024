@@ -109,19 +109,19 @@ public class Attack : MonoBehaviour
             if (spellBuffer[0] == "Fire")
             {
                 // Fire single firebolt (DoT)
-                InstantiateDirectionalProjectile(fireboltPrefab, directionToMouse);
+                InstantiateDirectionalProjectile(fireboltPrefab, directionToMouse,type: "Fire");
                 Debug.Log("Cast Firebolt");
             }
             else if (spellBuffer[0] == "Ice")
             {
                 // Ice slow beam (starter effect)
-                InstantiateDirectionalProjectile(coldBeamPrefab, directionToMouse);
+                InstantiateDirectionalProjectile(coldBeamPrefab, directionToMouse, type: "Ice");
                 Debug.Log("Cast Cold Beam (slow/stun)");
             }
             else if (spellBuffer[0] == "Lightning")
             {
                 // Lightning bolt
-                InstantiateDirectionalProjectile(lightningBoltPrefab, directionToMouse);
+                InstantiateDirectionalProjectile(lightningBoltPrefab, directionToMouse, type: "Lightning");
                 Debug.Log("Cast Lightning Bolt");
             }
         }
@@ -139,19 +139,19 @@ public class Attack : MonoBehaviour
             else if (sortedBuffer[0] == "Fire" && sortedBuffer[1] == "Ice")
             {
                 // Fire Ice - Water tsunami wall
-                InstantiateDirectionalProjectile(tsunamiPrefab, directionToMouse, large: true);
+                InstantiateDirectionalProjectile(tsunamiPrefab, directionToMouse, large: true, type: "Fire");
                 Debug.Log("Cast Tsunami Wall");
             }
             else if (sortedBuffer[0] == "Fire" && sortedBuffer[1] == "Lightning")
             {
                 // Fire Lightning - Big explosion at mouse position
-                InstantiateAtPosition(explosionPrefab, new Vector3(mousePos.x, mousePos.y, 0));
+                InstantiateAtPosition(explosionPrefab, new Vector3(mousePos.x, mousePos.y, 0), type: "Fire");
                 Debug.Log("Cast Big Explosion");
             }
             else if (sortedBuffer[0] == "Ice" && sortedBuffer[1] == "Ice")
             {
                 // Ice Ice - Full freeze cone
-                InstantiateDirectionalProjectile(freezeConePrefab, directionToMouse);
+                InstantiateDirectionalProjectile(freezeConePrefab, directionToMouse, type: "Ice");
                 Debug.Log("Cast Freeze Cone");
             }
             else if (sortedBuffer[0] == "Ice" && sortedBuffer[1] == "Lightning")
@@ -164,7 +164,7 @@ public class Attack : MonoBehaviour
             {
                 // Lightning Lightning - Chain lightning
                 Vector3 positionVector = new Vector3(mousePos.x, mousePos.y, 0);
-                InstantiateAtPosition(chainLightningPrefab, positionVector);
+                InstantiateAtPosition(chainLightningPrefab, positionVector, type: "Lightning");
                 CastChainLightning(positionVector);
                 Debug.Log("Cast Chain Lightning");
             }
@@ -178,7 +178,7 @@ public class Attack : MonoBehaviour
     }
 
     // Helper function to instantiate directional projectiles
-    private void InstantiateDirectionalProjectile(GameObject prefab, Vector3 direction, bool large = false)
+    private void InstantiateDirectionalProjectile(GameObject prefab, Vector3 direction, string type, bool large = false)
     {
         Vector3 spawnPos = transform.position;
         GameObject projectile = Instantiate(prefab, spawnPos, Quaternion.identity);
@@ -191,13 +191,22 @@ public class Attack : MonoBehaviour
         projectile.GetComponent<Rigidbody2D>().velocity = direction * speed;
 
         // Ensure collision with enemies
-        projectile.tag = "PlayerProjectile";
+        if(type == "Fire"){
+            projectile.tag = "Fire";
+        }
+        else if(type == "Ice"){
+            projectile.tag = "Ice";
+        }
+        else{
+            projectile.tag = "PlayerProjectile";
+        }
+
 
         // Destroy the projectile after 'despawnTime' seconds
         Destroy(projectile, despawnTime);
     }
 
-    private void InstantiateAtPosition(GameObject prefab, Vector3 position)
+    private void InstantiateAtPosition(GameObject prefab, Vector3 position, string type)
     {
         GameObject instance = Instantiate(prefab, position, Quaternion.identity);
 
@@ -237,7 +246,7 @@ public class Attack : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
-            InstantiateDirectionalProjectile(prefab, direction);
+            InstantiateDirectionalProjectile(prefab, direction, type: "Fire");
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -291,6 +300,11 @@ public class Attack : MonoBehaviour
     {
         Debug.Log("Casting chain lightning");
         List<GameObject> hitEnemies = new List<GameObject>();
+        StartCoroutine(ChainLightningCoroutine(positionVector, hitEnemies));
+
+    }
+
+    private IEnumerator ChainLightningCoroutine(Vector3 positionVector, List<GameObject> hitEnemies){
         GameObject currentTarget = FindClosestEnemy(positionVector, hitEnemies);
         for(int i = 0; i < 3; i++)
         {
@@ -303,18 +317,17 @@ public class Attack : MonoBehaviour
 
             if (currentTarget != null)
             {
-                InstantiateAtPosition(chainLightningPrefab, currentTarget.transform.position);
-                StartCoroutine(waiter());
-                Debug.Log("Chaining to: " + currentTarget.name);
+                yield return new WaitForSeconds(0.5f);
+                if(currentTarget != null){
+                    InstantiateAtPosition(chainLightningPrefab, currentTarget.transform.position, type: "Lightning");
+                    Debug.Log("Chaining to: " + currentTarget.name);
+                }
+
             }
 
 
 
         }
-    }
-
-    IEnumerator waiter(){
-        yield return new WaitForSeconds(1.0f);
     }
 
     private GameObject FindClosestEnemy(Vector3 position, List<GameObject> hitEnemies)
