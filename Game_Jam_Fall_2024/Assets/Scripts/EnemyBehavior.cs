@@ -22,6 +22,7 @@ public abstract class EnemyBehavior : MonoBehaviour
 
     public Canvas uiCanvas; // Reference to the canvas where the popup should be shown
 
+    private Vector3 worldEnemyPosition;
 
     // Abstract methods for specific enemy types to implement
     protected abstract void AttackPlayer();
@@ -37,6 +38,7 @@ public abstract class EnemyBehavior : MonoBehaviour
     {
         aiPath = GetComponent<AIPath>(); // Get the AIPath component
         ConfigureMovement(); // Configure movement based on enemy type
+
     }
 
     protected virtual void Update()
@@ -45,9 +47,12 @@ public abstract class EnemyBehavior : MonoBehaviour
         TrackPlayer();
         if(health <= 0){
             DropXP();
+            DestroyPopupAfterDelay(damagePopupPrefab, 1.0f);
             Destroy(gameObject);
             Debug.Log("Enemy destroyed");
         }
+
+        worldEnemyPosition = Camera.main.WorldToScreenPoint(enemyPosition);
     }
 
     protected virtual void GetPosition(Vector3 position)
@@ -123,18 +128,15 @@ public abstract class EnemyBehavior : MonoBehaviour
 
     private void ShowDamagePopup(int damage)
     {
-        // Convert enemy's world position to screen space
-        Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+        // Instantiate the damage popup at the enemy's position
+       // Vector3 worldEnemyPosition = Camera.main.WorldToScreenPoint(enemyPosition);
+        // GameObject damagePopup = Instantiate(damagePopupPrefab, enemyPosition, Quaternion.identity, transform);
+        // damagePopup.GetComponent<Canvas>().worldCamera = Camera.main;
+        // damagePopup.GetComponentInChildren<TMP_Text>().transform.position = enemyPosition;
+        TMP_Text textMesh = gameObject.GetComponentInChildren<TMP_Text>();
 
-        // Instantiate the damage popup as a child of the canvas
-        GameObject damagePopup = Instantiate(damagePopupPrefab, uiCanvas.transform);
 
-        // Set the popup's position in screen space coordinates
-        RectTransform popupRectTransform = damagePopup.GetComponent<RectTransform>();
-        popupRectTransform.position = screenPosition;
-
-        // Set the text to show the damage amount
-        TMP_Text textMesh = damagePopup.GetComponentInChildren<TMP_Text>();
+        //TMP_Text textMesh = damagePopup.GetComponentInChildren<TMP_Text>();
         if (textMesh != null)
         {
             textMesh.text = damage.ToString();
@@ -144,15 +146,12 @@ public abstract class EnemyBehavior : MonoBehaviour
             Debug.Log("No text mesh found in popup.");
         }
 
-        StartCoroutine(AnimateAndDestroyPopup(damagePopup, 1.0f));
+        StartCoroutine(AnimateAndDestroyPopup(textMesh, 1.0f));
     }
 
-
-
-
-    private IEnumerator AnimateAndDestroyPopup(GameObject obj, float seconds)
+    private IEnumerator AnimateAndDestroyPopup(TMP_Text obj, float seconds)
     {
-        TMP_Text textMesh = obj.GetComponentInChildren<TMP_Text>();
+        TMP_Text textMesh = obj;
         if (textMesh == null)
         {
             yield break;

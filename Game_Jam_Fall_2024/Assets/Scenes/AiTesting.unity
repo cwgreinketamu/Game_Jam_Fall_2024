@@ -339,7 +339,7 @@ MonoBehaviour:
   main_camera: {fileID: 1978712416}
   points: []
   corners: []
-  canvas: {fileID: 0}
+  canvas: {fileID: 925305273}
   greenSquare: {fileID: 2239022341929272502, guid: a4b3d1b4e204efe42b6bbdef82ca2819, type: 3}
   redSquare: {fileID: 6596611860607318161, guid: 391429a51d08d1544a3d69b870bdd80c, type: 3}
   dirSequence: 
@@ -1386,7 +1386,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5865602750386626629, guid: b6dfa074c0680d64abfc87170afb5d97, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6dfa074c0680d64abfc87170afb5d97, type: 3}
