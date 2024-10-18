@@ -43,11 +43,13 @@ public class Projectile : MonoBehaviour
     {
         Debug.Log($"Trigger detected with: {collision.gameObject.name}");
 
+        Player player = collision.gameObject.GetComponent<Player>();
+
         // Check if the projectile hits the player
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Projectile triggered with the player!");
-            // Implement player damage logic here (if needed)
+            player.TakeDamage(5f);
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Environment"))

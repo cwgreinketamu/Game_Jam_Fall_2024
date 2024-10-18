@@ -8,6 +8,7 @@ public class Zombie : EnemyBehavior
     private float attackCooldown = 1f; // Time between attacks
     private float lastAttackTime; // Time when the last attack was made
     private bool isAttacking = false; // Track if the zombie is currently attacking
+    public Vector3 position;
 
     protected override void Start()
     {

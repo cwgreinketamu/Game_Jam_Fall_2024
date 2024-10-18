@@ -18,6 +18,11 @@ public abstract class EnemyBehavior : MonoBehaviour
 
     private Vector3 enemyPosition;
 
+    public GameObject xpOrbPrefab;
+
+    public Canvas uiCanvas; // Reference to the canvas where the popup should be shown
+
+
     // Abstract methods for specific enemy types to implement
     protected abstract void AttackPlayer();
 
@@ -36,8 +41,10 @@ public abstract class EnemyBehavior : MonoBehaviour
 
     protected virtual void Update()
     {
+        enemyPosition = transform.position;
         TrackPlayer();
         if(health <= 0){
+            DropXP();
             Destroy(gameObject);
             Debug.Log("Enemy destroyed");
         }
@@ -92,6 +99,8 @@ public abstract class EnemyBehavior : MonoBehaviour
 
     private void TakeDamage(int damage, string type)
     {
+        Debug.Log("Enemy Position at TakeDamage: " + transform.position);
+
         if (type == "Fire")
         {
             StartCoroutine(DamageOverTime(damage, 5.0f, 1.0f));
@@ -111,11 +120,20 @@ public abstract class EnemyBehavior : MonoBehaviour
         }
     }
 
+
     private void ShowDamagePopup(int damage)
     {
-        // Instantiate the damage popup at the enemy's position
-        GameObject damagePopup = Instantiate(damagePopupPrefab, enemyPosition, Quaternion.identity);
+        // Convert enemy's world position to screen space
+        Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
 
+        // Instantiate the damage popup as a child of the canvas
+        GameObject damagePopup = Instantiate(damagePopupPrefab, uiCanvas.transform);
+
+        // Set the popup's position in screen space coordinates
+        RectTransform popupRectTransform = damagePopup.GetComponent<RectTransform>();
+        popupRectTransform.position = screenPosition;
+
+        // Set the text to show the damage amount
         TMP_Text textMesh = damagePopup.GetComponentInChildren<TMP_Text>();
         if (textMesh != null)
         {
@@ -123,11 +141,14 @@ public abstract class EnemyBehavior : MonoBehaviour
         }
         else
         {
-            Debug.Log("No text mesh found");
+            Debug.Log("No text mesh found in popup.");
         }
 
         StartCoroutine(AnimateAndDestroyPopup(damagePopup, 1.0f));
     }
+
+
+
 
     private IEnumerator AnimateAndDestroyPopup(GameObject obj, float seconds)
     {
@@ -177,5 +198,20 @@ public abstract class EnemyBehavior : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         Destroy(obj);
+    }
+
+    // Method to drop XP orbs when the enemy dies
+    private void DropXP()
+    {
+        if (xpOrbPrefab != null)
+        {
+            // Instantiate the XP orb prefab at the enemy's position
+            Instantiate(xpOrbPrefab, transform.position, Quaternion.identity);
+            Debug.Log("XP orb dropped");
+        }
+        else
+        {
+            Debug.LogWarning("XP orb prefab not assigned");
+        }
     }
 }
