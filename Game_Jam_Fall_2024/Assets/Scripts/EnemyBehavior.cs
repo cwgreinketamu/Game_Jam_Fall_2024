@@ -4,6 +4,7 @@ using UnityEngine;
 using Pathfinding; // Reference the Pathfinding namespace if using A* Pathfinding Project
 using TMPro;
 
+
 public abstract class EnemyBehavior : MonoBehaviour
 {
     // Reference to the AIPath component for movement control
@@ -24,6 +25,15 @@ public abstract class EnemyBehavior : MonoBehaviour
 
     private Vector3 worldEnemyPosition;
 
+    // List to track active damage popups
+    private List<GameObject> activePopups = new List<GameObject>();
+
+    private SpriteRenderer spriteRenderer;
+    private Seeker seeker;
+    private BoxCollider2D boxCollider2D;
+
+    public bool isDead = false;
+
     // Abstract methods for specific enemy types to implement
     protected abstract void AttackPlayer();
 
@@ -39,17 +49,22 @@ public abstract class EnemyBehavior : MonoBehaviour
         aiPath = GetComponent<AIPath>(); // Get the AIPath component
         ConfigureMovement(); // Configure movement based on enemy type
 
+        // Get references to the components to disable upon death
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        seeker = GetComponent<Seeker>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
     }
 
     protected virtual void Update()
     {
         enemyPosition = transform.position;
         TrackPlayer();
-        if(health <= 0){
-            DropXP();
-            DestroyPopupAfterDelay(damagePopupPrefab, 1.0f);
-            Destroy(gameObject);
-            Debug.Log("Enemy destroyed");
+
+        if (health <= 0 && !isDead)
+        {
+            // Only call once when the enemy dies
+            isDead = true;
+            StartCoroutine(HandleDeath());
         }
 
         worldEnemyPosition = Camera.main.WorldToScreenPoint(enemyPosition);
@@ -78,19 +93,21 @@ public abstract class EnemyBehavior : MonoBehaviour
         if (collision.gameObject.CompareTag("PlayerProjectile") || collision.gameObject.CompareTag("Fire") || collision.gameObject.CompareTag("Ice"))
         {
             Debug.Log("Player hit enemy!");
-            // Implement player damage logic here (if needed)
             collision.gameObject.GetComponent<Collider2D>().enabled = false;
-            //Destroy(gameObject);
-            if(collision.gameObject.CompareTag("Fire")){
+
+            if (collision.gameObject.CompareTag("Fire"))
+            {
                 TakeDamage(10, "Fire");
             }
-            else if(collision.gameObject.CompareTag("Ice")){
+            else if (collision.gameObject.CompareTag("Ice"))
+            {
                 TakeDamage(30, "Ice");
             }
-            else{
+            else
+            {
                 TakeDamage(100, "Lightning");
-
             }
+
             CoroutineManager.Instance.StartManagedCoroutine(DestroyAfterDelay(collision.gameObject, 0.5f));
         }
     }
@@ -104,6 +121,8 @@ public abstract class EnemyBehavior : MonoBehaviour
 
     private void TakeDamage(int damage, string type)
     {
+        if (isDead) return; // Don't take more damage if already dead
+
         Debug.Log("Enemy Position at TakeDamage: " + transform.position);
 
         if (type == "Fire")
@@ -125,48 +144,59 @@ public abstract class EnemyBehavior : MonoBehaviour
         }
     }
 
-
     private void ShowDamagePopup(int damage)
     {
-        // Instantiate the damage popup at the enemy's position
-       // Vector3 worldEnemyPosition = Camera.main.WorldToScreenPoint(enemyPosition);
-        // GameObject damagePopup = Instantiate(damagePopupPrefab, enemyPosition, Quaternion.identity, transform);
-        // damagePopup.GetComponent<Canvas>().worldCamera = Camera.main;
-        // damagePopup.GetComponentInChildren<TMP_Text>().transform.position = enemyPosition;
-        TMP_Text textMesh = gameObject.GetComponentInChildren<TMP_Text>();
+        if (damagePopupPrefab == null)
+        {
+            Debug.LogWarning("Damage Popup Prefab is not assigned.");
+            return;
+        }
 
+        // Instantiate the damage popup prefab at the enemy's position
+        GameObject damagePopup = Instantiate(damagePopupPrefab, transform.position, Quaternion.identity);
+        activePopups.Add(damagePopup); // Track the instantiated popup
 
-        //TMP_Text textMesh = damagePopup.GetComponentInChildren<TMP_Text>();
+        // Get the TMP_Text component from the instantiated popup
+        TMP_Text textMesh = damagePopup.GetComponentInChildren<TMP_Text>();
+
         if (textMesh != null)
         {
             textMesh.text = damage.ToString();
         }
         else
         {
-            Debug.Log("No text mesh found in popup.");
+            Debug.LogWarning("No TMP_Text component found in the damage popup prefab.");
         }
 
-        StartCoroutine(AnimateAndDestroyPopup(textMesh, 1.0f));
+        // Optionally, if you want the popup to appear on the UI canvas:
+        if (uiCanvas != null)
+        {
+            damagePopup.transform.SetParent(uiCanvas.transform, false);
+
+            // Set the position of the popup in screen space, since it's on a canvas
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+            damagePopup.transform.position = screenPosition;
+        }
+
+        // Start coroutine to animate and destroy the popup after a delay
+        StartCoroutine(AnimateAndDestroyPopup(damagePopup, 1.0f));
     }
 
-    private IEnumerator AnimateAndDestroyPopup(TMP_Text obj, float seconds)
+    private IEnumerator AnimateAndDestroyPopup(GameObject popup, float seconds)
     {
-        TMP_Text textMesh = obj;
+        TMP_Text textMesh = popup.GetComponentInChildren<TMP_Text>();
         if (textMesh == null)
         {
             yield break;
         }
 
-        Vector3 originalPosition = obj.transform.position;
+        Vector3 originalPosition = textMesh.transform.position;
         Color originalColor = textMesh.color;
 
         float elapsed = 0f;
         while (elapsed < seconds)
         {
             float t = elapsed / seconds;
-
-            // Move the popup upwards
-            obj.transform.position = originalPosition + Vector3.up * t;
 
             // Fade out the text
             textMesh.color = new Color(originalColor.r, originalColor.g, originalColor.b, Mathf.Lerp(1f, 0f, t));
@@ -177,13 +207,22 @@ public abstract class EnemyBehavior : MonoBehaviour
 
         // Ensure the popup is fully faded out and then destroy it
         textMesh.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
-        Destroy(obj);
+        Destroy(popup);
+
+        // Remove from the list of active popups
+        activePopups.Remove(popup);
+
+        // If no more popups are active and enemy is dead, destroy the enemy
+        if (isDead && activePopups.Count == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator DamageOverTime(float damage, float seconds, float interval)
     {
         float elapsed = 0f;
-        while (elapsed < seconds)
+        while (elapsed < seconds && health > 0)
         {
             health -= damage;
             ShowDamagePopup((int)damage);
@@ -193,10 +232,24 @@ public abstract class EnemyBehavior : MonoBehaviour
         }
     }
 
-    private IEnumerator DestroyPopupAfterDelay(GameObject obj, float seconds)
+    // Coroutine to handle enemy death
+    private IEnumerator HandleDeath()
     {
-        yield return new WaitForSeconds(seconds);
-        Destroy(obj);
+        // Turn off enemy components so it stops interacting with the world
+        if (spriteRenderer != null) spriteRenderer.enabled = false;
+        if (seeker != null) seeker.enabled = false;
+        if (boxCollider2D != null) boxCollider2D.enabled = false;
+
+        DropXP(); // Drop XP before fully destroying the enemy
+
+        // Wait until all damage popups are gone
+        while (activePopups.Count > 0)
+        {
+            yield return null;
+        }
+
+        // Destroy the enemy after the last popup has been shown
+        Destroy(gameObject);
     }
 
     // Method to drop XP orbs when the enemy dies

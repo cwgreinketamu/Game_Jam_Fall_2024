@@ -52,7 +52,7 @@ public class Zombie : EnemyBehavior
         // If within attack range and cooldown period has passed, attack
         if (distanceToPlayer <= attackRange && Time.time >= lastAttackTime + attackCooldown)
         {
-            if (!isAttacking) // Only attack if not already attacking
+            if (!isAttacking && !isDead) // Only attack if not already attacking
             {
                 isAttacking = true; // Set the attacking flag
                 AttackPlayer();

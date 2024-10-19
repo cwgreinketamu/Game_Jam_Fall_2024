@@ -178,7 +178,7 @@ PrefabInstance:
     - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
       propertyPath: damagePopupPrefab
       value: 
-      objectReference: {fileID: 56902038053422275, guid: 42e87f66c89a0ca409422484d387b856, type: 3}
+      objectReference: {fileID: 3062278451857983260, guid: a48ca2345c003fc41a6e63b8d239ef4d, type: 3}
     - target: {fileID: 5093934756730701539, guid: a79830861a6e50a429ec384b897e4678, type: 3}
       propertyPath: m_Name
       value: Zombie
@@ -761,6 +761,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   speed: 10
+  currentXP: 0
+  level: 1
+  xpToNextLevel: 100
 --- !u!114 &1553734042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1338,13 +1341,21 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5553542734222882313, guid: b6dfa074c0680d64abfc87170afb5d97, type: 3}
+      propertyPath: xpOrbPrefab
+      value: 
+      objectReference: {fileID: 7952675516730260359, guid: ee4075bbf31799948bf003a780a75d14, type: 3}
+    - target: {fileID: 5553542734222882313, guid: b6dfa074c0680d64abfc87170afb5d97, type: 3}
       propertyPath: damagePopupPrefab
       value: 
-      objectReference: {fileID: 56902038053422275, guid: 42e87f66c89a0ca409422484d387b856, type: 3}
+      objectReference: {fileID: 3062278451857983260, guid: a48ca2345c003fc41a6e63b8d239ef4d, type: 3}
     - target: {fileID: 6256521726540981407, guid: b6dfa074c0680d64abfc87170afb5d97, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1553734037}
+    - target: {fileID: 6929372434127219106, guid: b6dfa074c0680d64abfc87170afb5d97, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8187346494498399504, guid: b6dfa074c0680d64abfc87170afb5d97, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.35

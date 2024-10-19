@@ -23,7 +23,7 @@ public class Skeleton : EnemyBehavior
     protected override void AttackPlayer()
     {
         // Check if the cooldown period has passed since the last attack
-        if (Time.time > lastAttackTime + attackCooldown)
+        if (Time.time > lastAttackTime + attackCooldown && !isDead)
         {
             Debug.Log("Skeleton fires a projectile at the player!");
             // Implement projectile firing logic
