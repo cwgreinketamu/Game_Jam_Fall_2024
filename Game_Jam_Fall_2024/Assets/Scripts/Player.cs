@@ -55,5 +55,13 @@ public class Player : MonoBehaviour
         currentXP -= xpToNextLevel;  // Reset XP after level-up
         xpToNextLevel += 50;  // Increase the XP needed for the next level
         Debug.Log($"Player leveled up! New Level: {level}");
+        if (level == 2)
+        {
+            //unlock 2nd spell, trigger tutorial sequence
+        }
+        else if (level == 3)
+        {
+            //unlock 3rd spell, trigger tutorial sequence
+        }
     }
 }

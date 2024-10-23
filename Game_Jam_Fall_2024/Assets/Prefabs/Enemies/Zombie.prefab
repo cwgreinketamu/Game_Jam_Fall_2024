@@ -263,8 +263,13 @@ MonoBehaviour:
   health: 100
   detectionRange: 5
   damagePopupPrefab: {fileID: 56902038053422275, guid: 42e87f66c89a0ca409422484d387b856, type: 3}
+  xpOrbPrefab: {fileID: 0}
+  particlePrefab: {fileID: 6143056731923031691, guid: 13c4d6779e0d45443966a892bc251582, type: 3}
+  uiCanvas: {fileID: 0}
+  isDead: 0
   attackDamage: 10
   attackRange: 1.5
+  position: {x: 0, y: 0, z: 0}
 --- !u!50 &-1404638277601594289
 Rigidbody2D:
   serializedVersion: 4

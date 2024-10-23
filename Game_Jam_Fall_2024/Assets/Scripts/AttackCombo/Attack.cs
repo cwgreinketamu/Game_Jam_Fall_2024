@@ -14,6 +14,7 @@ public class Attack : MonoBehaviour
     public GameObject randomIceProjPrefab;  // Random direction ice projectiles
     public GameObject lightningBoltPrefab;  // Lightning bolt
     public GameObject chainLightningPrefab;  // Chain Lightning
+    [SerializeField] GameObject particlePrefab;
     public float speed = 10f;
     public float despawnTime = 3.0f;  // Time after which projectiles despawn
     private bool activeCombo = false;
@@ -110,18 +111,36 @@ public class Attack : MonoBehaviour
             {
                 // Fire single firebolt (DoT)
                 InstantiateDirectionalProjectile(fireboltPrefab, directionToMouse,type: "Fire");
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.red;
+                }
                 Debug.Log("Cast Firebolt");
             }
             else if (spellBuffer[0] == "Ice")
             {
                 // Ice slow beam (starter effect)
                 InstantiateDirectionalProjectile(coldBeamPrefab, directionToMouse, type: "Ice");
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.cyan;
+                }
                 Debug.Log("Cast Cold Beam (slow/stun)");
             }
             else if (spellBuffer[0] == "Lightning")
             {
                 // Lightning bolt
                 InstantiateDirectionalProjectile(lightningBoltPrefab, directionToMouse, type: "Lightning");
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.blue;
+                }
                 Debug.Log("Cast Lightning Bolt");
             }
         }
@@ -134,30 +153,75 @@ public class Attack : MonoBehaviour
             {
                 // Fire Fire - Flamethrower
                 StartCoroutine(FireContinuous(flamethrowerPrefab, directionToMouse));
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.red;
+                    GameObject particle2 = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main2 = particle2.GetComponent<ParticleSystem>().main;
+                    main2.startColor = Color.red;
+                }
                 Debug.Log("Cast Flamethrower");
             }
             else if (sortedBuffer[0] == "Fire" && sortedBuffer[1] == "Ice")
             {
                 // Fire Ice - Water tsunami wall
                 InstantiateDirectionalProjectile(tsunamiPrefab, directionToMouse, large: true, type: "Fire");
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.red;
+                    GameObject particle2 = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main2 = particle2.GetComponent<ParticleSystem>().main;
+                    main2.startColor = Color.cyan;
+                }
                 Debug.Log("Cast Tsunami Wall");
             }
             else if (sortedBuffer[0] == "Fire" && sortedBuffer[1] == "Lightning")
             {
                 // Fire Lightning - Big explosion at mouse position
                 InstantiateAtPosition(explosionPrefab, new Vector3(mousePos.x, mousePos.y, 0), type: "Fire");
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.red;
+                    GameObject particle2 = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main2 = particle2.GetComponent<ParticleSystem>().main;
+                    main2.startColor = Color.blue;
+                }
                 Debug.Log("Cast Big Explosion");
             }
             else if (sortedBuffer[0] == "Ice" && sortedBuffer[1] == "Ice")
             {
                 // Ice Ice - Full freeze cone
                 InstantiateDirectionalProjectile(freezeConePrefab, directionToMouse, type: "Ice");
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.cyan;
+                    GameObject particle2 = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main2 = particle2.GetComponent<ParticleSystem>().main;
+                    main2.startColor = Color.cyan;
+                }
                 Debug.Log("Cast Freeze Cone");
             }
             else if (sortedBuffer[0] == "Ice" && sortedBuffer[1] == "Lightning")
             {
                 // Ice Lightning - Random projectiles in 4 directions
                 CastAoePushBack(randomIceProjPrefab, 4);
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.cyan;
+                    GameObject particle2 = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main2 = particle2.GetComponent<ParticleSystem>().main;
+                    main2.startColor = Color.blue;
+                }
                 Debug.Log("Cast Ice Lightning (random projectiles)");
             }
             else if (sortedBuffer[0] == "Lightning" && sortedBuffer[1] == "Lightning")
@@ -166,6 +230,15 @@ public class Attack : MonoBehaviour
                 Vector3 positionVector = new Vector3(mousePos.x, mousePos.y, 0);
                 InstantiateAtPosition(chainLightningPrefab, positionVector, type: "Lightning");
                 CastChainLightning(positionVector);
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.blue;
+                    GameObject particle2 = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main2 = particle2.GetComponent<ParticleSystem>().main;
+                    main2.startColor = Color.blue;
+                }
                 Debug.Log("Cast Chain Lightning");
             }
         }

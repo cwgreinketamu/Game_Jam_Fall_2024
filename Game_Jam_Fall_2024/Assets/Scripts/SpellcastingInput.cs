@@ -13,6 +13,7 @@ public class SpellcastingInput : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject greenSquare;
     [SerializeField] private GameObject redSquare;
+    [SerializeField] private GameObject particlePrefab;
     [SerializeField] private string dirSequence; //0 - 7, up = 0, cw around
     private Vector2 lastPos; //stores last mousePos to ensure only new mousePos are gathered
     private bool flag; //tracks whether rune is still being drawn
@@ -221,6 +222,24 @@ public class SpellcastingInput : MonoBehaviour
         if (map.ContainsKey(dirSequence)) //rune exists, cast spell here
         {
             attackScript.AddSpell(map[dirSequence]);
+            if (particlePrefab != null)
+            {
+                Vector2 mousePos = Input.mousePosition;
+                GameObject particle = Instantiate(particlePrefab, new Vector3(main_camera.ScreenToWorldPoint(mousePos).x, main_camera.ScreenToWorldPoint(mousePos).y, 0), Quaternion.identity);
+                var main = particle.GetComponent<ParticleSystem>().main;
+                if (map[dirSequence] == "Fire")
+                {
+                    main.startColor = Color.red;
+                }
+                else if (map[dirSequence] == "Ice")
+                {
+                    main.startColor = Color.cyan;
+                }
+                else if (map[dirSequence] == "Lightning")
+                {
+                    main.startColor = Color.blue;
+                }
+            }
         }
         else //if no match, reverses the sequence and tries again
         {

@@ -21,6 +21,8 @@ public abstract class EnemyBehavior : MonoBehaviour
 
     public GameObject xpOrbPrefab;
 
+    [SerializeField] private GameObject particlePrefab;
+
     public Canvas uiCanvas; // Reference to the canvas where the popup should be shown
 
     private Vector3 worldEnemyPosition;
@@ -34,6 +36,7 @@ public abstract class EnemyBehavior : MonoBehaviour
 
     public bool isDead = false;
 
+    private GameObject progressionManager;
     // Abstract methods for specific enemy types to implement
     protected abstract void AttackPlayer();
 
@@ -53,6 +56,7 @@ public abstract class EnemyBehavior : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         seeker = GetComponent<Seeker>();
         boxCollider2D = GetComponent<BoxCollider2D>();
+        progressionManager = GameObject.FindWithTag("Progression");
     }
 
     protected virtual void Update()
@@ -64,6 +68,10 @@ public abstract class EnemyBehavior : MonoBehaviour
         {
             // Only call once when the enemy dies
             isDead = true;
+            if (progressionManager != null)
+            {
+                progressionManager.GetComponent<ProgressionScript>().EnemyDeath();
+            }
             StartCoroutine(HandleDeath());
         }
 
@@ -97,14 +105,32 @@ public abstract class EnemyBehavior : MonoBehaviour
 
             if (collision.gameObject.CompareTag("Fire"))
             {
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.red;
+                }
                 TakeDamage(10, "Fire");
             }
             else if (collision.gameObject.CompareTag("Ice"))
             {
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.cyan;
+                }
                 TakeDamage(30, "Ice");
             }
             else
             {
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.blue;
+                }
                 TakeDamage(100, "Lightning");
             }
 

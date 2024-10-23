@@ -176,6 +176,10 @@ MonoBehaviour:
   health: 100
   detectionRange: 3
   damagePopupPrefab: {fileID: 0}
+  xpOrbPrefab: {fileID: 0}
+  particlePrefab: {fileID: 6143056731923031691, guid: 13c4d6779e0d45443966a892bc251582, type: 3}
+  uiCanvas: {fileID: 0}
+  isDead: 0
   projectilePrefab: {fileID: 5212130358829990542, guid: d9610bd0846ad9546a25298f359fe98d, type: 3}
   projectileSpeed: 10
   attackCooldown: 2
@@ -278,7 +282,6 @@ GameObject:
   - component: {fileID: 6606302947671412522}
   - component: {fileID: 3993535907687332341}
   - component: {fileID: 4153577086569967393}
-  - component: {fileID: 6929372434127219106}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -389,7 +392,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -439,11 +442,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 3993535907687332341}
   m_maskType: 0
---- !u!33 &6929372434127219106
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4100896400416760367}
-  m_Mesh: {fileID: 0}
