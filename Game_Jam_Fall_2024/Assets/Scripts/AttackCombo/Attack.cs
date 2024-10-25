@@ -46,6 +46,27 @@ public class Attack : MonoBehaviour
 
     public Texture2D lightninglightningCursor;
 
+    public AudioSource fireballSound;
+
+    public AudioSource fireballhitSound;
+
+    public AudioSource lightningSound;
+
+    public AudioSource iceCastSound;
+
+    public AudioSource waterCastSound;
+
+    public AudioSource fireLightningBoom;
+
+    public AudioSource iceLightningBoom;
+
+    public AudioSource iceice;
+
+
+
+    public GameObject audioManager;
+
+
 
     [SerializeField] private string prevSpell = "none";
 
@@ -117,6 +138,8 @@ public class Attack : MonoBehaviour
                     var main = particle.GetComponent<ParticleSystem>().main;
                     main.startColor = Color.red;
                 }
+                audioManager.GetComponent<AudioManager>().playSound(fireballSound);
+
                 Debug.Log("Cast Firebolt");
             }
             else if (spellBuffer[0] == "Ice")
@@ -129,6 +152,7 @@ public class Attack : MonoBehaviour
                     var main = particle.GetComponent<ParticleSystem>().main;
                     main.startColor = Color.cyan;
                 }
+                audioManager.GetComponent<AudioManager>().playSound(iceCastSound);
                 Debug.Log("Cast Cold Beam (slow/stun)");
             }
             else if (spellBuffer[0] == "Lightning")
@@ -141,6 +165,8 @@ public class Attack : MonoBehaviour
                     var main = particle.GetComponent<ParticleSystem>().main;
                     main.startColor = Color.blue;
                 }
+
+                audioManager.GetComponent<AudioManager>().playSound(fireLightningBoom);
                 Debug.Log("Cast Lightning Bolt");
             }
         }
@@ -167,7 +193,7 @@ public class Attack : MonoBehaviour
             else if (sortedBuffer[0] == "Fire" && sortedBuffer[1] == "Ice")
             {
                 // Fire Ice - Water tsunami wall
-                InstantiateDirectionalProjectile(tsunamiPrefab, directionToMouse, large: true, type: "Fire");
+                InstantiateDirectionalProjectile(tsunamiPrefab, directionToMouse, large: true, type: "Water");
                 if (particlePrefab != null)
                 {
                     GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
@@ -177,6 +203,7 @@ public class Attack : MonoBehaviour
                     var main2 = particle2.GetComponent<ParticleSystem>().main;
                     main2.startColor = Color.cyan;
                 }
+                audioManager.GetComponent<AudioManager>().playSound(waterCastSound);
                 Debug.Log("Cast Tsunami Wall");
             }
             else if (sortedBuffer[0] == "Fire" && sortedBuffer[1] == "Lightning")
@@ -192,6 +219,7 @@ public class Attack : MonoBehaviour
                     var main2 = particle2.GetComponent<ParticleSystem>().main;
                     main2.startColor = Color.blue;
                 }
+                audioManager.GetComponent<AudioManager>().playSound(lightningSound);
                 Debug.Log("Cast Big Explosion");
             }
             else if (sortedBuffer[0] == "Ice" && sortedBuffer[1] == "Ice")
@@ -207,6 +235,7 @@ public class Attack : MonoBehaviour
                     var main2 = particle2.GetComponent<ParticleSystem>().main;
                     main2.startColor = Color.cyan;
                 }
+                audioManager.GetComponent<AudioManager>().playSound(iceice);
                 Debug.Log("Cast Freeze Cone");
             }
             else if (sortedBuffer[0] == "Ice" && sortedBuffer[1] == "Lightning")
@@ -222,6 +251,7 @@ public class Attack : MonoBehaviour
                     var main2 = particle2.GetComponent<ParticleSystem>().main;
                     main2.startColor = Color.blue;
                 }
+                audioManager.GetComponent<AudioManager>().playSound(iceLightningBoom);
                 Debug.Log("Cast Ice Lightning (random projectiles)");
             }
             else if (sortedBuffer[0] == "Lightning" && sortedBuffer[1] == "Lightning")
@@ -269,6 +299,9 @@ public class Attack : MonoBehaviour
         }
         else if(type == "Ice"){
             projectile.tag = "Ice";
+        }
+        else if(type == "Water"){
+            projectile.tag = "Water";
         }
         else{
             projectile.tag = "PlayerProjectile";
@@ -319,6 +352,7 @@ public class Attack : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
+            audioManager.GetComponent<AudioManager>().playSound(fireballSound);
             InstantiateDirectionalProjectile(prefab, direction, type: "Fire");
             yield return new WaitForSeconds(0.1f);
         }
@@ -392,6 +426,7 @@ public class Attack : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.5f);
                 if(currentTarget != null){
+                    audioManager.GetComponent<AudioManager>().playSound(lightningSound);
                     InstantiateAtPosition(chainLightningPrefab, currentTarget.transform.position, type: "Lightning");
                     Debug.Log("Chaining to: " + currentTarget.name);
                 }

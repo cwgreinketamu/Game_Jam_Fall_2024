@@ -37,6 +37,14 @@ public abstract class EnemyBehavior : MonoBehaviour
     public bool isDead = false;
 
     private GameObject progressionManager;
+
+
+    public AudioSource fireHitSound;
+
+    public AudioSource iceHitSound;
+
+    public AudioSource waterHitSound;
+    public GameObject audioManager;
     // Abstract methods for specific enemy types to implement
     protected abstract void AttackPlayer();
 
@@ -98,20 +106,33 @@ public abstract class EnemyBehavior : MonoBehaviour
         Debug.Log($"Trigger detected with: {collision.gameObject.name}");
 
         // Check if the projectile hits the player
-        if (collision.gameObject.CompareTag("PlayerProjectile") || collision.gameObject.CompareTag("Fire") || collision.gameObject.CompareTag("Ice"))
+        if (collision.gameObject.CompareTag("PlayerProjectile") || collision.gameObject.CompareTag("Fire") || collision.gameObject.CompareTag("Ice") || collision.gameObject.CompareTag("Water") || collision.gameObject.CompareTag("Lightning"))
         {
             Debug.Log("Player hit enemy!");
             collision.gameObject.GetComponent<Collider2D>().enabled = false;
 
             if (collision.gameObject.CompareTag("Fire"))
             {
+
                 if (particlePrefab != null)
                 {
                     GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
                     var main = particle.GetComponent<ParticleSystem>().main;
                     main.startColor = Color.red;
                 }
+                audioManager.GetComponent<AudioManager>().playSound(fireHitSound);
                 TakeDamage(10, "Fire");
+                
+            }
+            else if(collision.gameObject.CompareTag("Water")){
+                if (particlePrefab != null)
+                {
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = Color.blue;
+                }
+                audioManager.GetComponent<AudioManager>().playSound(waterHitSound);
+                TakeDamage(70, "Water");
             }
             else if (collision.gameObject.CompareTag("Ice"))
             {
@@ -121,6 +142,7 @@ public abstract class EnemyBehavior : MonoBehaviour
                     var main = particle.GetComponent<ParticleSystem>().main;
                     main.startColor = Color.cyan;
                 }
+                audioManager.GetComponent<AudioManager>().playSound(iceHitSound);
                 TakeDamage(30, "Ice");
             }
             else
@@ -162,6 +184,19 @@ public abstract class EnemyBehavior : MonoBehaviour
             ShowDamagePopup(damage);
             aiPath.maxSpeed = 0.3f * aiPath.maxSpeed;
             Debug.Log("Slowed by ice");
+        }
+        else if(type == "Water")
+        {
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            health -= damage;
+            ShowDamagePopup(damage);
+            if(rb != null)
+            {
+                Debug.Log("Knockback by water");
+                Vector2 knockback = new Vector2(0, 1);
+                float knockbackForce = -10000f;
+                rb.AddForce(knockback * knockbackForce);
+            }
         }
         else
         {
