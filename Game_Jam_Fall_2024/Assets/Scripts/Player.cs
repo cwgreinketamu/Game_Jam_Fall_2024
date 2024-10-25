@@ -7,14 +7,30 @@ public class Player : MonoBehaviour
     public int currentXP = 0;
     public int level = 1;
     public int xpToNextLevel = 100;
+    private Rigidbody2D rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     void Update()
     {
-        // Handle movement
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
-        transform.Translate(direction* speed * Time.deltaTime);
+        // Gather input in the Update method for more responsive input handling
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        // Calculate movement direction based on WASD input
+        Vector2 direction = new Vector2(horizontalInput, verticalInput).normalized;
+
+        // Apply movement
+        Move(direction);
+    }
+
+    void Move(Vector2 direction)
+    {
+        // Move the player using Rigidbody2D for smoother and more stable physics updates
+        rb.velocity = direction * speed;
     }
 
     public void TakeDamage(float damage)

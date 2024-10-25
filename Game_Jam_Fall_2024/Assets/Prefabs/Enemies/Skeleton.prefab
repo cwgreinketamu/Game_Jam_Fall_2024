@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 4942676420266429834}
   - component: {fileID: 5068982944042024351}
   - component: {fileID: 8295456057663221985}
-  - component: {fileID: 5553542734222882313}
   - component: {fileID: 6256521726540981407}
-  - component: {fileID: 4872513802854038840}
+  - component: {fileID: -8154181323901208384}
   - component: {fileID: 2729173595253172500}
+  - component: {fileID: 5553542734222882313}
+  - component: {fileID: 402200610848157307}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -149,41 +150,18 @@ MonoBehaviour:
     mode: 2
     interval: 0.5
     sensitivity: 10
-    maximumInterval: 2
+    maximumInterval: 1
     visualizeSensitivity: 0
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
-  rotationSpeed: 360
-  slowdownDistance: 15
+  rotationSpeed: 180
+  slowdownDistance: 16
   pickNextWaypointDist: 2
-  endReachedDistance: 10
+  endReachedDistance: 12
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &5553542734222882313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1048630917583521731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e8e037df7fcfe340aad8a76c42d979f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  detectionRange: 3
-  damagePopupPrefab: {fileID: 0}
-  xpOrbPrefab: {fileID: 0}
-  particlePrefab: {fileID: 6143056731923031691, guid: 13c4d6779e0d45443966a892bc251582, type: 3}
-  uiCanvas: {fileID: 0}
-  isDead: 0
-  projectilePrefab: {fileID: 5212130358829990542, guid: d9610bd0846ad9546a25298f359fe98d, type: 3}
-  projectileSpeed: 10
-  attackCooldown: 2
-  movementSpeed: 3
 --- !u!114 &6256521726540981407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 0}
---- !u!114 &4872513802854038840
+--- !u!114 &-8154181323901208384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -255,7 +233,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -269,8 +247,58 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &5553542734222882313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048630917583521731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8e037df7fcfe340aad8a76c42d979f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  detectionRange: 100
+  damagePopupPrefab: {fileID: 3062278451857983260, guid: a48ca2345c003fc41a6e63b8d239ef4d, type: 3}
+  xpOrbPrefab: {fileID: 7952675516730260359, guid: ee4075bbf31799948bf003a780a75d14, type: 3}
+  particlePrefab: {fileID: 6143056731923031691, guid: 13c4d6779e0d45443966a892bc251582, type: 3}
+  uiCanvas: {fileID: 0}
+  isDead: 0
+  projectilePrefab: {fileID: 5212130358829990542, guid: d9610bd0846ad9546a25298f359fe98d, type: 3}
+  projectileSpeed: 10
+  attackCooldown: 2
+  movementSpeed: 3
+--- !u!50 &402200610848157307
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048630917583521731}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4100896400416760367
 GameObject:
   m_ObjectHideFlags: 0

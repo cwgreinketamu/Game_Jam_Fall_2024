@@ -20,9 +20,6 @@ public class Zombie : EnemyBehavior
     protected override void ConfigureMovement()
     {
         base.ConfigureMovement();
-        aiPath.maxSpeed = 4.5f; // Set zombie-specific movement parameters
-        aiPath.slowdownDistance = 3.0f;
-        aiPath.endReachedDistance = 2.0f;
     }
     
 

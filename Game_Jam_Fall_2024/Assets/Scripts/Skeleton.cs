@@ -14,9 +14,6 @@ public class Skeleton : EnemyBehavior
     {
         base.ConfigureMovement();
         // Set skeleton-specific movement parameters
-        aiPath.maxSpeed = movementSpeed; // Slower movement
-        aiPath.slowdownDistance = 5.0f;
-        aiPath.endReachedDistance = 4.5f; // Engage from a distance
     }
     
 

@@ -153,8 +153,8 @@ MonoBehaviour:
     visualizeSensitivity: 0
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
-  rotationSpeed: 360
-  slowdownDistance: 2
+  rotationSpeed: 180
+  slowdownDistance: 1
   pickNextWaypointDist: 2
   endReachedDistance: 2
   alwaysDrawGizmos: 0
@@ -215,7 +215,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -232,7 +232,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -246,7 +246,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &4677430607103557657
 MonoBehaviour:
@@ -261,9 +261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  detectionRange: 5
-  damagePopupPrefab: {fileID: 56902038053422275, guid: 42e87f66c89a0ca409422484d387b856, type: 3}
-  xpOrbPrefab: {fileID: 0}
+  detectionRange: 100
+  damagePopupPrefab: {fileID: 3062278451857983260, guid: a48ca2345c003fc41a6e63b8d239ef4d, type: 3}
+  xpOrbPrefab: {fileID: 7952675516730260359, guid: ee4075bbf31799948bf003a780a75d14, type: 3}
   particlePrefab: {fileID: 6143056731923031691, guid: 13c4d6779e0d45443966a892bc251582, type: 3}
   uiCanvas: {fileID: 0}
   isDead: 0
@@ -285,7 +285,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
