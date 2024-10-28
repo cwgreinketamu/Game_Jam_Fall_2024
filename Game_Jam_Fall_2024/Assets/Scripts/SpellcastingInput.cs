@@ -26,6 +26,9 @@ public class SpellcastingInput : MonoBehaviour
     [SerializeField] private float clickThreshold = 0.5f;
 
     [SerializeField] private Attack attackScript;
+
+    public AudioSource completeSpell;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +55,23 @@ public class SpellcastingInput : MonoBehaviour
                 points.Add(mousePos);
                 lastPos = mousePos;
                 GameObject tempSquare = Instantiate(greenSquare, canvas.transform);
+                if (particlePrefab != null)
+                {
+                    // Get the position where the spell is drawn
+                    Vector3 spellPosition = main_camera.ScreenToWorldPoint(mousePos);
+                    spellPosition.z = 0; // Ensure the z position is 0 for 2D
+
+                    // Instantiate the particle system at the spell position
+                    GameObject particle = Instantiate(particlePrefab, spellPosition, Quaternion.identity, canvas.transform);
+                    var main = particle.GetComponent<ParticleSystem>().main;
+                    main.startColor = new Color(1.0f, 0.84f, 0.0f); // Gold color
+
+                    // Optionally, add some randomness to the particle positions
+                    ParticleSystem particleSystem = particle.GetComponent<ParticleSystem>();
+                    ParticleSystem.ShapeModule shape = particleSystem.shape;
+                    shape.shapeType = ParticleSystemShapeType.Sphere;
+                    shape.radius = 0.5f; // Adjust the radius as needed
+                }
                 tempSquare.GetComponent<RectTransform>().position = new Vector3(main_camera.ScreenToWorldPoint(mousePos).x, main_camera.ScreenToWorldPoint(mousePos).y, 0);
             }
         }
@@ -221,6 +241,7 @@ public class SpellcastingInput : MonoBehaviour
     {
         if (map.ContainsKey(dirSequence)) //rune exists, cast spell here
         {
+            completeSpell.Play();
             attackScript.AddSpell(map[dirSequence]);
             if (particlePrefab != null)
             {
@@ -246,6 +267,7 @@ public class SpellcastingInput : MonoBehaviour
             string reverseSequence = ReverseSequence(dirSequence);
             if (map.ContainsKey(reverseSequence)) //rune exists, cast spell here
             {
+                completeSpell.Play();
                 attackScript.AddSpell(map[reverseSequence]);
             }
             else //if no match again, rune doesn't exist

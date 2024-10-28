@@ -5,6 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public AudioSource lightningSound;
+    public AudioClip lightningClip;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +23,11 @@ public class AudioManager : MonoBehaviour
         if(sound == lightningSound){
             Debug.Log("Lightning sound played");
             sound.time = 1.9f;
-            sound.Play();
+            sound.PlayOneShot(lightningClip, 0.75f);
             sound.SetScheduledEndTime(AudioSettings.dspTime+(6.0f-1.9f));
         }
         else{
+            Debug.Log("Other sound played");
             sound.Play();
         }
     }

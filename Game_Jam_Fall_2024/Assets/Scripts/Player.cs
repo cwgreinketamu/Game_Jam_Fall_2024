@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 public class Player : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class Player : MonoBehaviour
     public int currentXP = 0;
     public int level = 1;
     public int xpToNextLevel = 100;
+
+    public AudioSource spellSound;
     private Rigidbody2D rb;
 
     void Start()
@@ -25,6 +28,19 @@ public class Player : MonoBehaviour
 
         // Apply movement
         Move(direction);
+
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            if (!spellSound.isPlaying)
+            {
+                spellSound.Play();
+                Debug.Log("spell sound played");
+            }
+        }
+        else
+        {
+            spellSound.Stop();
+        }
     }
 
     void Move(Vector2 direction)
@@ -48,6 +64,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player has died!");
         // Implement death logic (e.g., restart game, show game over screen)
+        SceneManager.LoadScene("DeathScene");
     }
 
     // Method to add XP to the player

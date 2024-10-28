@@ -225,7 +225,7 @@ public class Attack : MonoBehaviour
             else if (sortedBuffer[0] == "Ice" && sortedBuffer[1] == "Ice")
             {
                 // Ice Ice - Full freeze cone
-                InstantiateDirectionalProjectile(freezeConePrefab, directionToMouse, type: "Ice");
+                InstantiateDirectionalProjectile(freezeConePrefab, directionToMouse, type: "IceIce");
                 if (particlePrefab != null)
                 {
                     GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
@@ -258,7 +258,9 @@ public class Attack : MonoBehaviour
             {
                 // Lightning Lightning - Chain lightning
                 Vector3 positionVector = new Vector3(mousePos.x, mousePos.y, 0);
+
                 InstantiateAtPosition(chainLightningPrefab, positionVector, type: "Lightning");
+                audioManager.GetComponent<AudioManager>().playSound(lightningSound);
                 CastChainLightning(positionVector);
                 if (particlePrefab != null)
                 {
@@ -283,33 +285,42 @@ public class Attack : MonoBehaviour
     // Helper function to instantiate directional projectiles
     private void InstantiateDirectionalProjectile(GameObject prefab, Vector3 direction, string type, bool large = false)
     {
-        Vector3 spawnPos = transform.position;
-        GameObject projectile = Instantiate(prefab, spawnPos, Quaternion.identity);
+        if(type == "IceIce"){
+            float duration = 2f;
+            float interval = 0.5f;
 
-        if (large)
-        {
-            projectile.transform.localScale *= 2.0f;
-        }
-
-        projectile.GetComponent<Rigidbody2D>().velocity = direction * speed;
-
-        // Ensure collision with enemies
-        if(type == "Fire"){
-            projectile.tag = "Fire";
-        }
-        else if(type == "Ice"){
-            projectile.tag = "Ice";
-        }
-        else if(type == "Water"){
-            projectile.tag = "Water";
+            StartCoroutine(CastIceCone(prefab, direction, duration, interval, large));
         }
         else{
-            projectile.tag = "PlayerProjectile";
+            Vector3 spawnPos = transform.position;
+            GameObject projectile = Instantiate(prefab, spawnPos, Quaternion.identity);
+
+            if (large)
+            {
+                projectile.transform.localScale *= 2.0f;
+            }
+
+            projectile.GetComponent<Rigidbody2D>().velocity = direction * speed;
+
+            // Ensure collision with enemies
+            if(type == "Fire"){
+                projectile.tag = "Fire";
+            }
+            else if(type == "Ice"){
+                projectile.tag = "Ice";
+            }
+            else if(type == "Water"){
+                projectile.tag = "Water";
+            }
+            else{
+                projectile.tag = "PlayerProjectile";
+            }
+
+
+            // Destroy the projectile after 'despawnTime' seconds
+            Destroy(projectile, despawnTime);
         }
 
-
-        // Destroy the projectile after 'despawnTime' seconds
-        Destroy(projectile, despawnTime);
     }
 
     private void InstantiateAtPosition(GameObject prefab, Vector3 position, string type)
@@ -322,6 +333,7 @@ public class Attack : MonoBehaviour
         // Destroy the instance after 'despawnTime' seconds
         Destroy(instance, despawnTime);
     }
+
 
     private void CastAoePushBack(GameObject prefab, int numProjectiles = 8, float radius = 2.0f, float projectileSpeed = 5.0f)
     {
@@ -355,6 +367,41 @@ public class Attack : MonoBehaviour
             audioManager.GetComponent<AudioManager>().playSound(fireballSound);
             InstantiateDirectionalProjectile(prefab, direction, type: "Fire");
             yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private IEnumerator CastIceCone(GameObject prefab, Vector3 direction, float duration, float interval, bool large = false)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            int numProjectiles = 5; // Number of projectiles in the cone
+            float coneAngle = 45f; // Total angle of the cone in degrees
+            float angleStep = coneAngle / (numProjectiles - 1); // Angle between each projectile
+
+            for (int i = 0; i < numProjectiles; i++)
+            {
+                // Calculate the angle for this projectile
+                float angle = -coneAngle / 2 + angleStep * i;
+                Vector3 projectileDirection = Quaternion.Euler(0, 0, angle) * direction;
+
+                // Instantiate the projectile
+                GameObject projectile = Instantiate(prefab, transform.position, Quaternion.identity);
+
+                if (large)
+                {
+                    projectile.transform.localScale *= 2.0f;
+                }
+
+                projectile.GetComponent<Rigidbody2D>().velocity = projectileDirection * speed;
+                projectile.tag = "Ice";
+
+                // Destroy the projectile after 'despawnTime' seconds
+                Destroy(projectile, despawnTime);
+            }
+
+            elapsedTime += interval;
+            yield return new WaitForSeconds(interval);
         }
     }
 
@@ -421,10 +468,11 @@ public class Attack : MonoBehaviour
             }
             hitEnemies.Add(currentTarget);
             currentTarget = FindClosestEnemy(currentTarget.transform.position, hitEnemies);
+            Debug.Log("Hello " + currentTarget.name);
 
             if (currentTarget != null)
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.8f);
                 if(currentTarget != null){
                     audioManager.GetComponent<AudioManager>().playSound(lightningSound);
                     InstantiateAtPosition(chainLightningPrefab, currentTarget.transform.position, type: "Lightning");
@@ -441,7 +489,7 @@ public class Attack : MonoBehaviour
     private GameObject FindClosestEnemy(Vector3 position, List<GameObject> hitEnemies)
     {
         Debug.Log("Finding closest enemy");
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(position, 100.0f);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(position, 1000.0f);
         Debug.Log("Found " + hitColliders.Length + " colliders");
         GameObject closestEnemy = null;
         float closestDistance = float.MaxValue;

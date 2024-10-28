@@ -121,7 +121,7 @@ public abstract class EnemyBehavior : MonoBehaviour
                     main.startColor = Color.red;
                 }
                 audioManager.GetComponent<AudioManager>().playSound(fireHitSound);
-                TakeDamage(10, "Fire");
+                TakeDamage(100, "Fire");
                 
             }
             else if(collision.gameObject.CompareTag("Water")){
@@ -132,7 +132,7 @@ public abstract class EnemyBehavior : MonoBehaviour
                     main.startColor = Color.blue;
                 }
                 audioManager.GetComponent<AudioManager>().playSound(waterHitSound);
-                TakeDamage(70, "Water");
+                TakeDamage(700, "Water");
             }
             else if (collision.gameObject.CompareTag("Ice"))
             {
@@ -143,7 +143,7 @@ public abstract class EnemyBehavior : MonoBehaviour
                     main.startColor = Color.cyan;
                 }
                 audioManager.GetComponent<AudioManager>().playSound(iceHitSound);
-                TakeDamage(30, "Ice");
+                TakeDamage(300, "Ice");
             }
             else
             {
@@ -153,7 +153,7 @@ public abstract class EnemyBehavior : MonoBehaviour
                     var main = particle.GetComponent<ParticleSystem>().main;
                     main.startColor = Color.blue;
                 }
-                TakeDamage(100, "Lightning");
+                TakeDamage(1000, "Lightning");
             }
 
             CoroutineManager.Instance.StartManagedCoroutine(DestroyAfterDelay(collision.gameObject, 0.5f));
@@ -181,7 +181,7 @@ public abstract class EnemyBehavior : MonoBehaviour
         else if (type == "Ice")
         {
             health -= damage;
-            ShowDamagePopup(damage);
+            ShowDamagePopup(damage, new Color(0, 1, 1, 1));
             aiPath.maxSpeed = 0.3f * aiPath.maxSpeed;
             Debug.Log("Slowed by ice");
         }
@@ -189,7 +189,7 @@ public abstract class EnemyBehavior : MonoBehaviour
         {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             health -= damage;
-            ShowDamagePopup(damage);
+            ShowDamagePopup(damage, new Color(0, 0, 1, 1));
             if(rb != null)
             {
                 Debug.Log("Knockback by water");
@@ -201,11 +201,11 @@ public abstract class EnemyBehavior : MonoBehaviour
         else
         {
             health -= damage;
-            ShowDamagePopup(damage);
+            ShowDamagePopup(damage, new Color(1, 0, 1, 1));
         }
     }
 
-    private void ShowDamagePopup(int damage)
+    private void ShowDamagePopup(int damage, Color color)
     {
         if (damagePopupPrefab == null)
         {
@@ -223,6 +223,7 @@ public abstract class EnemyBehavior : MonoBehaviour
         if (textMesh != null)
         {
             textMesh.text = damage.ToString();
+            textMesh.color = color;
         }
         else
         {
@@ -283,10 +284,12 @@ public abstract class EnemyBehavior : MonoBehaviour
     private IEnumerator DamageOverTime(float damage, float seconds, float interval)
     {
         float elapsed = 0f;
+        int popupdamage = (int)damage;
         while (elapsed < seconds && health > 0)
         {
             health -= damage;
-            ShowDamagePopup((int)damage);
+            ShowDamagePopup(popupdamage, new Color (1, 0, 0, 1));
+            popupdamage += 100;
             Debug.Log("Health: " + health);
             yield return new WaitForSeconds(interval);
             elapsed += interval;

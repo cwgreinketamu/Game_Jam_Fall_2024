@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: -1404638277601594289}
   m_Layer: 0
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -260,13 +260,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763ad781c6a39e4479b09c510381e6a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 1000
   detectionRange: 100
   damagePopupPrefab: {fileID: 3062278451857983260, guid: a48ca2345c003fc41a6e63b8d239ef4d, type: 3}
   xpOrbPrefab: {fileID: 7952675516730260359, guid: ee4075bbf31799948bf003a780a75d14, type: 3}
   particlePrefab: {fileID: 6143056731923031691, guid: 13c4d6779e0d45443966a892bc251582, type: 3}
   uiCanvas: {fileID: 0}
   isDead: 0
+  fireHitSound: {fileID: 0}
+  iceHitSound: {fileID: 0}
+  waterHitSound: {fileID: 0}
+  audioManager: {fileID: 0}
   attackDamage: 10
   attackRange: 1.5
   position: {x: 0, y: 0, z: 0}

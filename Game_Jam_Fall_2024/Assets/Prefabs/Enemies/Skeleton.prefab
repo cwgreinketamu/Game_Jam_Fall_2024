@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: -8154181323901208384}
   - component: {fileID: 2729173595253172500}
   - component: {fileID: 611959206531483590}
+  - component: {fileID: 5553542734222882313}
   m_Layer: 0
   m_Name: Skeleton
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,33 +162,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &5553542734222882313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1048630917583521731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e8e037df7fcfe340aad8a76c42d979f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  detectionRange: 3
-  damagePopupPrefab: {fileID: 0}
-  xpOrbPrefab: {fileID: 0}
-  particlePrefab: {fileID: 6143056731923031691, guid: 13c4d6779e0d45443966a892bc251582, type: 3}
-  uiCanvas: {fileID: 0}
-  isDead: 0
-  fireHitSound: {fileID: 0}
-  iceHitSound: {fileID: 0}
-  waterHitSound: {fileID: 0}
-  audioManager: {fileID: 0}
-  projectilePrefab: {fileID: 5212130358829990542, guid: d9610bd0846ad9546a25298f359fe98d, type: 3}
-  projectileSpeed: 10
-  attackCooldown: 2
-  movementSpeed: 3
 --- !u!114 &6256521726540981407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,6 +276,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5553542734222882313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048630917583521731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8e037df7fcfe340aad8a76c42d979f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1000
+  detectionRange: 100
+  damagePopupPrefab: {fileID: 3062278451857983260, guid: a48ca2345c003fc41a6e63b8d239ef4d, type: 3}
+  xpOrbPrefab: {fileID: 0}
+  particlePrefab: {fileID: 6143056731923031691, guid: 13c4d6779e0d45443966a892bc251582, type: 3}
+  uiCanvas: {fileID: 0}
+  isDead: 0
+  fireHitSound: {fileID: 0}
+  iceHitSound: {fileID: 0}
+  waterHitSound: {fileID: 0}
+  audioManager: {fileID: 0}
+  projectilePrefab: {fileID: 5212130358829990542, guid: d9610bd0846ad9546a25298f359fe98d, type: 3}
+  projectileSpeed: 10
+  attackCooldown: 2
+  movementSpeed: 3
 --- !u!1 &4100896400416760367
 GameObject:
   m_ObjectHideFlags: 0
