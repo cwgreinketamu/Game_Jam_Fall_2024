@@ -2013,12 +2013,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0af65c26fc18ef84f8945df4a23a4924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000
+  health: 100
   speed: 10
   currentXP: 0
   level: 1
   xpToNextLevel: 100
   spellSound: {fileID: 1367932849}
+  particlePrefab: {fileID: 6143056731923031691, guid: 13c4d6779e0d45443966a892bc251582, type: 3}
 --- !u!114 &1553734042
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: df1cd874f2713534b89e27074cd3fccd
+guid: 5009ba443ba848d4cb37524fabd55a0a
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Charis SIL
+  - Norse
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

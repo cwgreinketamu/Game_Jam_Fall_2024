@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement; 
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -12,9 +15,18 @@ public class Player : MonoBehaviour
     public AudioSource spellSound;
     private Rigidbody2D rb;
 
+    private Camera mainCamera;
+
+    bool isZoomingIn = false;
+
+    [SerializeField] GameObject particlePrefab;
+
+    public Image GameOverFade;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        mainCamera = Camera.main; 
     }
 
     void Update()
@@ -64,7 +76,11 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player has died!");
         // Implement death logic (e.g., restart game, show game over screen)
-        SceneManager.LoadScene("DeathScene");
+        if(!isZoomingIn){
+            isZoomingIn = true;
+            StartCoroutine(ZoomInOnDeath());
+
+        }
     }
 
     // Method to add XP to the player
@@ -95,6 +111,85 @@ public class Player : MonoBehaviour
         else if (level == 3)
         {
             //unlock 3rd spell, trigger tutorial sequence
+        }
+    }
+
+    private IEnumerator ZoomInOnDeath()
+    {
+        float targetSize = 2f;
+        float duration = 1f;
+        float startSize = mainCamera.orthographicSize;
+
+        float elapsed = 0f;
+
+        while(elapsed < duration)
+        {
+            mainCamera.orthographicSize = Mathf.Lerp(startSize, targetSize, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        mainCamera.orthographicSize = targetSize;
+
+
+
+        if (particlePrefab != null && transform != null)
+        {
+            GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+            var main = particle.GetComponent<ParticleSystem>().main;
+            //main.startColor = GetRandomColor();
+            SetRandomParticleColors(particle.GetComponent<ParticleSystem>(),50);
+            
+        }
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+        yield return new WaitForSeconds(1f);
+
+        StartCoroutine(FadeOutObject(GameOverFade, 2f));
+        yield return new WaitForSeconds(2f);
+
+
+        SceneManager.LoadScene("DeathScene");
+    }
+
+    private IEnumerator FadeOutObject(Image image, float duration)
+    {
+            Color color = image.color;
+            float startAlpha = color.a;
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float alpha = Mathf.Lerp(startAlpha, 1f, elapsed / duration);
+                color.a = alpha;
+                image.color = color;
+                yield return null;
+            }
+
+            // Ensure the final alpha is set to 0
+            color.a = 1f;
+            image.color = color;
+    }
+
+    private Color GetRandomColor()
+    {
+        List<Color> colors = new List<Color>
+        {
+            Color.red,
+            Color.yellow,
+            Color.cyan
+        };
+        int randomIndex = Random.Range(0, colors.Count);
+        return colors[randomIndex];
+    }
+
+    private void SetRandomParticleColors(ParticleSystem particleSystem, int count)
+    {
+        for(int i = 0; i < count; i++)
+        {
+            ParticleSystem.EmitParams emitParams = new ParticleSystem.EmitParams();
+            emitParams.startColor = GetRandomColor();
+            particleSystem.Emit(emitParams, 1);
         }
     }
 }

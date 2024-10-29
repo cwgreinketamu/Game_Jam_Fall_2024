@@ -293,7 +293,8 @@ public class Attack : MonoBehaviour
         }
         else{
             Vector3 spawnPos = transform.position;
-            GameObject projectile = Instantiate(prefab, spawnPos, Quaternion.identity);
+            Quaternion rotation = Quaternion.LookRotation(Vector3.forward, direction);
+            GameObject projectile = Instantiate(prefab, spawnPos, rotation);
 
             if (large)
             {
@@ -468,7 +469,7 @@ public class Attack : MonoBehaviour
             }
             hitEnemies.Add(currentTarget);
             currentTarget = FindClosestEnemy(currentTarget.transform.position, hitEnemies);
-            Debug.Log("Hello " + currentTarget.name);
+            // Debug.Log("Hello " + currentTarget.name);
 
             if (currentTarget != null)
             {
