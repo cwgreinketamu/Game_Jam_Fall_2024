@@ -23,10 +23,13 @@ public class Player : MonoBehaviour
 
     public Image GameOverFade;
 
+    [SerializeField] HealthBarScript healthBarScript;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        mainCamera = Camera.main; 
+        mainCamera = Camera.main;
+        healthBarScript = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBarScript>();
     }
 
     void Update()
@@ -65,7 +68,7 @@ public class Player : MonoBehaviour
     {
         health -= damage; // Reduce health by damage amount
         Debug.Log($"Player takes {damage} damage. Remaining health: {health}");
-
+        healthBarScript.DecreaseBar(damage/health);
         if (health <= 0)
         {
             Die(); // Call a method to handle player death

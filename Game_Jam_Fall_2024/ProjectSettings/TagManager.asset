@@ -14,6 +14,7 @@ TagManager:
   - Progression
   - Water
   - Lightning
+  - HealthBar
   layers:
   - Default
   - TransparentFX

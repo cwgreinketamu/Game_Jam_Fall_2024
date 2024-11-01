@@ -178,11 +178,13 @@ public class SpellcastingInput : MonoBehaviour
                 corners.Remove(corners[j]);
             }
         }
+        /* //uncomment for red squares at corners
         for (int k = 0; k < corners.Count; k++)
         {
             GameObject tempSquare = Instantiate(redSquare, canvas.transform);
             tempSquare.GetComponent<RectTransform>().position = new Vector3(main_camera.ScreenToWorldPoint(corners[k]).x, main_camera.ScreenToWorldPoint(corners[k]).y, 0);
         }
+        */
         GetDirections(corners);
     }
 
