@@ -21,10 +21,16 @@ public class SpellTutorial : MonoBehaviour
     private bool dialogueComplete = false;
     private bool tutorialDone = false;
 
+    public GameObject spawner;
+
+    private Spawner spawnScript;
+
     void Start()
     {
         // Get the Attack script attached to the same GameObject
         attackScript = GetComponent<Attack>();
+
+        spawnScript = spawner.GetComponent<Spawner>();
 
         if (attackScript == null)
         {
@@ -32,7 +38,7 @@ public class SpellTutorial : MonoBehaviour
         }
 
         // Initial dialogue on scene open
-        ShowDialogue("I’ve finally found it...\n\nThe legendary ruins of Spelltrace!\n\nAll that’s left to do now is click and drag over the shape of the ruins and then right-click to confirm for each of the three shapes...");
+        ShowDialogue("I’ve finally found it...\n\nThe legendary ruins of Spelltrace!\n\nAll that’s left to do now is click and drag over the shape of the ruins and then right-click to confirm for each of the three shapes... (Space to remove text)");
     }
 
     void Update()
@@ -60,6 +66,7 @@ public class SpellTutorial : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 HideDialogue();
+                spawnScript.enabled = true;
                 enabled = false;
             }
         }

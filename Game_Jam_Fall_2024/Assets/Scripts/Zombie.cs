@@ -28,17 +28,6 @@ public class Zombie : EnemyBehavior
         base.GetPosition(transform.position);
         base.Update();
         CheckAttack(); // Check if the zombie can attack the player
-
-        if (!isAttacking)
-        {
-            // Move towards the player when not attacking
-            aiPath.target = player; // Set the player as the target for AIPath
-        }
-        else
-        {
-            // Stop moving or prevent AIPath from updating while attacking
-            aiPath.target = null; // Stop following the player while attacking
-        }
     }
 
 
