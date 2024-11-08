@@ -36,9 +36,9 @@ public class SpellcastingInput : MonoBehaviour
         corners = new List<Vector2>();
         flag = true;
         dirSequence = "";
-        map.Add("136", "Fire"); //add runes like this until i find a better way
-        map.Add("0246", "Ice");
-        map.Add("363", "Lightning");
+        map.Add("53", "Fire"); //add runes like this until i find a better way
+        map.Add("35", "Ice");
+        map.Add("31", "Lightning");
 
         attackScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Attack>();
     }

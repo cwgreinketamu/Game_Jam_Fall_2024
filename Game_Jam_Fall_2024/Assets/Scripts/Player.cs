@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public float health = 100f; // Player's health
+    public float maxHealth = 100f;
     public float speed = 10f;
     public int currentXP = 0;
     public int level = 1;
@@ -24,12 +25,20 @@ public class Player : MonoBehaviour
     public Image GameOverFade;
 
     [SerializeField] HealthBarScript healthBarScript;
+    
+    private StatsManagerScript statsManager;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         healthBarScript = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBarScript>();
+        Debug.Log("health start at " + health);
+        statsManager = GameObject.FindGameObjectWithTag("StatsManager").GetComponent<StatsManagerScript>();
+        if (statsManager != null)
+        {
+            Debug.Log("holy shit its not null");
+        }
     }
 
     void Update()
@@ -68,7 +77,7 @@ public class Player : MonoBehaviour
     {
         health -= damage; // Reduce health by damage amount
         Debug.Log($"Player takes {damage} damage. Remaining health: {health}");
-        healthBarScript.DecreaseBar(damage/health);
+        healthBarScript.DecreaseBar(damage/maxHealth);
         if (health <= 0)
         {
             Die(); // Call a method to handle player death
@@ -79,6 +88,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player has died!");
         // Implement death logic (e.g., restart game, show game over screen)
+        statsManager.PrepareGameOverScreen();
         if(!isZoomingIn){
             isZoomingIn = true;
             StartCoroutine(ZoomInOnDeath());
@@ -98,6 +108,22 @@ public class Player : MonoBehaviour
         }
 
         Debug.Log($"Current XP: {currentXP} / {xpToNextLevel}");
+    }
+
+    public void AddHealth(int healthAmount)
+    {
+        if (health + healthAmount >= maxHealth)
+        {
+            health = maxHealth;
+            healthBarScript.SetBar(1.0f);
+        }
+        else
+        {
+            health += healthAmount;
+            healthBarScript.IncreaseBar(healthAmount/maxHealth);
+        }
+        Debug.Log("player health is now " + health);
+        
     }
 
     // Method to handle player leveling up
