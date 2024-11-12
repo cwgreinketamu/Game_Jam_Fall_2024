@@ -20,7 +20,11 @@ public abstract class EnemyBehavior : MonoBehaviour
     private Vector3 enemyPosition;
 
     public GameObject xpOrbPrefab;
+    public GameObject healthOrbPrefab;
+    [SerializeField] float healthDropChance = 0.20f; //chance of dropping health orb
 
+    [SerializeField] private ScoreScript scoreScript;
+    public int scoreAmount = 100;
     [SerializeField] private GameObject particlePrefab;
 
     public Canvas uiCanvas; // Reference to the canvas where the popup should be shown
@@ -65,6 +69,7 @@ public abstract class EnemyBehavior : MonoBehaviour
         seeker = GetComponent<Seeker>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         progressionManager = GameObject.FindWithTag("Progression");
+        scoreScript = GameObject.FindGameObjectWithTag("Score").GetComponent<ScoreScript>();
     }
 
     protected virtual void Update()
@@ -304,7 +309,9 @@ public abstract class EnemyBehavior : MonoBehaviour
         if (seeker != null) seeker.enabled = false;
         if (boxCollider2D != null) boxCollider2D.enabled = false;
 
-        DropXP(); // Drop XP before fully destroying the enemy
+        //DropXP(); // Drop XP before fully destroying the enemy
+        DropHealth();
+        scoreScript.AddScore(scoreAmount);
 
         // Wait until all damage popups are gone
         while (activePopups.Count > 0)
@@ -328,6 +335,18 @@ public abstract class EnemyBehavior : MonoBehaviour
         else
         {
             Debug.LogWarning("XP orb prefab not assigned");
+        }
+    }
+
+    private void DropHealth()
+    {
+        float roll = Random.Range(0.0f, 1.0f);
+        if (roll <= healthDropChance)
+        {
+            if (healthOrbPrefab != null)
+            {
+                Instantiate(healthOrbPrefab, transform.position, Quaternion.identity);
+            }
         }
     }
 }
