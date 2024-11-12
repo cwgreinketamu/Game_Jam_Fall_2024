@@ -8,7 +8,9 @@ public class Skeleton : EnemyBehavior
     private float lastAttackTime; // Tracks time since last attack
 
     public float movementSpeed = 3.0f; // Movement speed of the skeleton
-
+    //variables used for animation
+    public Animator anim; //animator component on skeleton
+    public Rigidbody2D rb; //skeleton rigidbody
     
     protected override void ConfigureMovement()
     {
@@ -61,7 +63,16 @@ public class Skeleton : EnemyBehavior
         base.GetPosition(transform.position);
         base.Update();
         HandleRangedAttack();
-    }
+        //animator direction float management
+        //Rigidbody rb = GetComponent<Rigidbody>();
+        //float movementx = rb.velocity.x;
+        float movementx = GetComponent<Pathfinding.AIPath>().desiredVelocity.x;
+        anim.SetFloat("Horizontal", movementx);
+        float speedx = Mathf.Abs(movementx);
+        anim.SetFloat("Speed", speedx);
+        Debug.Log(movementx);
+        Debug.Log(speedx);
+    }   
 
     // Additional logic for ranged attack behavior
     private void HandleRangedAttack()
