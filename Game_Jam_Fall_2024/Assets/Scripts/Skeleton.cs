@@ -12,7 +12,9 @@ public class Skeleton : EnemyBehavior
     //variables used for animation
     public Animator anim; //animator component on skeleton
     public Rigidbody2D rb; //skeleton rigidbody
-    
+    public bool attackingRapid = false;
+
+
     protected override void ConfigureMovement()
     {
         base.ConfigureMovement();
@@ -26,9 +28,11 @@ public class Skeleton : EnemyBehavior
         if (Time.time > lastAttackTime + attackCooldown && !isDead)
         {
             Debug.Log("Skeleton fires a projectile at the player!");
+
             // Implement projectile firing logic
             FireProjectile();
             lastAttackTime = Time.time; // Update the last attack time
+            movementSpeed = 3.0f;
         }
     }
 
@@ -37,6 +41,7 @@ public class Skeleton : EnemyBehavior
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
+            
             // Calculate the direction to the player (2D vector)
             Vector2 direction = (player.transform.position - transform.position).normalized;
 
@@ -71,6 +76,10 @@ public class Skeleton : EnemyBehavior
         anim.SetFloat("Horizontal", movementx);
         float speedx = Mathf.Abs(movementx);
         anim.SetFloat("Speed", speedx);
+        if (movementx != 0)
+        {
+            attackingRapid = false;
+        }
     }   
 
     // Additional logic for ranged attack behavior
@@ -84,7 +93,28 @@ public class Skeleton : EnemyBehavior
             // Check if the enemy is within attack range but not too close
             if (distanceToPlayer <= aiPath.endReachedDistance && !aiPath.pathPending)
             {
+                movementSpeed = 0f;
+                //play regular attack anim if not attacking alread, play rapid fire if attacking already
+                if(anim.GetBool("Attack") == true && attackingRapid == true)
+                {
+                    anim.ResetTrigger("Attack");
+                    anim.SetTrigger("Rapid Fire");
+                    float movementx = GetComponent<Pathfinding.AIPath>().desiredVelocity.x;
+                    float direction_h = movementx / (Mathf.Abs(movementx));
+                    anim.SetFloat("Static Horizontal", direction_h);
+                    anim.SetFloat("Speed", 0);
+                }
+                else if(!anim.GetCurrentAnimatorStateInfo(0).IsName("Bow Skeleton Shoot") ||!anim.GetCurrentAnimatorStateInfo(0).IsName("Flipped Bow Skeleton Shoot"))
+                {
+                    anim.ResetTrigger("Rapid Fire");
+                    anim.SetTrigger("Attack");
+                    float movementx = GetComponent<Pathfinding.AIPath>().desiredVelocity.x;
+                    float direction_h = movementx / (Mathf.Abs(movementx));
+                    anim.SetFloat("Static Horizontal", direction_h);
+                    anim.SetFloat("Speed", 0);
+                }
                 AttackPlayer();
+                attackingRapid = true;
             }
         }
     }
