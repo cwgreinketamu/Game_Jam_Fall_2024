@@ -300,10 +300,12 @@ MonoBehaviour:
   particlePrefab: {fileID: 6143056731923031691, guid: 13c4d6779e0d45443966a892bc251582, type: 3}
   uiCanvas: {fileID: 0}
   isDead: 0
-  fireHitSound: {fileID: 1221843343927647082, guid: 954307c99dcd7ab41b35f3cc4afde320, type: 3}
-  iceHitSound: {fileID: 5368755222966524002, guid: 72e125b521d43a846a6e4c8dc3fa4369, type: 3}
-  waterHitSound: {fileID: 5181372212800319501, guid: 2c03869f3e663484695513e061a891ca, type: 3}
-  audioManager: {fileID: 9153825320973006247, guid: 57dc63e6d24ffc24fb3311520e4006c2, type: 3}
+  fireHitSound: {fileID: 0}
+  iceHitSound: {fileID: 0}
+  waterHitSound: {fileID: 0}
+  audioManager: {fileID: 0}
+  firePrefab: {fileID: 6183229974304848337, guid: 19f244443eb3a014d919e081754b3c4f, type: 3}
+  fireboltAnim: {fileID: 0}
   projectilePrefab: {fileID: 5212130358829990542, guid: d9610bd0846ad9546a25298f359fe98d, type: 3}
   projectileSpeed: 10
   attackCooldown: 2

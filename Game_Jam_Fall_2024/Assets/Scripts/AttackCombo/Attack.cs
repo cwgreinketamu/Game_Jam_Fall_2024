@@ -70,6 +70,10 @@ public class Attack : MonoBehaviour
 
     [SerializeField] private string prevSpell = "none";
 
+    public Animator animator;
+
+
+
 
     void Start()
     {
@@ -121,6 +125,7 @@ public class Attack : MonoBehaviour
 
     private void CastSpell()
     {
+        animator.SetTrigger("Attack");
         Debug.Log("Casting spell with buffer: " + string.Join(", ", spellBuffer));
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -134,7 +139,7 @@ public class Attack : MonoBehaviour
                 InstantiateDirectionalProjectile(fireboltPrefab, directionToMouse,type: "Fire");
                 if (particlePrefab != null)
                 {
-                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+                    GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.Euler(0,0,-180));
                     var main = particle.GetComponent<ParticleSystem>().main;
                     main.startColor = Color.red;
                 }
@@ -285,6 +290,8 @@ public class Attack : MonoBehaviour
     // Helper function to instantiate directional projectiles
     private void InstantiateDirectionalProjectile(GameObject prefab, Vector3 direction, string type, bool large = false)
     {
+        //GameObject projectile = Instantiate(prefab, transform.position, Quaternion.identity);
+        GameObject projectile;
         if(type == "IceIce"){
             float duration = 2f;
             float interval = 0.5f;
@@ -293,8 +300,27 @@ public class Attack : MonoBehaviour
         }
         else{
             Vector3 spawnPos = transform.position;
+            // spawnPos += new Vector3(0, 3f, 0);
             Quaternion rotation = Quaternion.LookRotation(Vector3.forward, direction);
-            GameObject projectile = Instantiate(prefab, spawnPos, rotation);
+                if(type == "Fire"){
+                // Instantiate the projectile at the desired position without rotation
+                projectile = Instantiate(prefab, spawnPos, Quaternion.identity);
+
+                // Apply the rotation to the projectile
+                projectile.transform.rotation = rotation * Quaternion.AngleAxis(90, Vector3.forward);
+
+                // Apply the scale to the projectile
+
+                projectile.transform.localScale *= 4.0f; // Adjust the scale factor as needed
+            
+            }
+            else if(type == "Ice"){
+                projectile = Instantiate(prefab, spawnPos, rotation * Quaternion.AngleAxis(180, Vector3.forward));
+            }
+            else{
+                projectile = Instantiate(prefab, spawnPos, rotation);
+            }
+
 
             if (large)
             {

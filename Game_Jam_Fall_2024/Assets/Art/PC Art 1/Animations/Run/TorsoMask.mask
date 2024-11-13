@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TorsoMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000000000000000000000000000000000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: minebot_main
+    m_Weight: 1
+  - m_Path: minebot_main/minebot_front_upperleg
+    m_Weight: 1
+  - m_Path: minebot_main/minebot_front_upperleg/minebot_back_lowerleg
+    m_Weight: 1
+  - m_Path: minebot_main/minebot_front_upperleg2
+    m_Weight: 1
+  - m_Path: minebot_main/minebot_front_upperleg2/minebot_front_lowerleg
+    m_Weight: 1
+  - m_Path: minebot_main/minebot_head
+    m_Weight: 1
+  - m_Path: minebot_main/minebot_left_upperleg
+    m_Weight: 1
+  - m_Path: minebot_main/minebot_left_upperleg/minebot_left_lowerleg
+    m_Weight: 1
+  - m_Path: minebot_main/minebot_right_upperleg
+    m_Weight: 1
+  - m_Path: minebot_main/minebot_right_upperleg/minebot_right_lowerleg
+    m_Weight: 1

@@ -1,3 +1,4 @@
+using Pathfinding;
 using UnityEngine;
 
 public class Skeleton : EnemyBehavior
@@ -70,8 +71,6 @@ public class Skeleton : EnemyBehavior
         anim.SetFloat("Horizontal", movementx);
         float speedx = Mathf.Abs(movementx);
         anim.SetFloat("Speed", speedx);
-        Debug.Log(movementx);
-        Debug.Log(speedx);
     }   
 
     // Additional logic for ranged attack behavior

@@ -28,6 +28,10 @@ public class Player : MonoBehaviour
     
     private StatsManagerScript statsManager;
 
+    private Animator animator;
+
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,6 +43,9 @@ public class Player : MonoBehaviour
         {
             Debug.Log("holy shit its not null");
         }
+
+        animator = GetComponent<Animator>();
+    
     }
 
     void Update()
@@ -71,6 +78,7 @@ public class Player : MonoBehaviour
     {
         // Move the player using Rigidbody2D for smoother and more stable physics updates
         rb.velocity = direction * speed;
+        animator.SetBool("Running", direction != Vector2.zero);
     }
 
     public void TakeDamage(float damage)
@@ -145,6 +153,8 @@ public class Player : MonoBehaviour
 
     private IEnumerator ZoomInOnDeath()
     {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
         float targetSize = 2f;
         float duration = 1f;
         float startSize = mainCamera.orthographicSize;
@@ -166,7 +176,7 @@ public class Player : MonoBehaviour
             GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
             var main = particle.GetComponent<ParticleSystem>().main;
             //main.startColor = GetRandomColor();
-            SetRandomParticleColors(particle.GetComponent<ParticleSystem>(),50);
+            SetRandomParticleColors(particle.GetComponent<ParticleSystem>(),5000);
             
         }
         gameObject.GetComponent<SpriteRenderer>().enabled = false;

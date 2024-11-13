@@ -275,6 +275,8 @@ MonoBehaviour:
   iceHitSound: {fileID: 0}
   waterHitSound: {fileID: 0}
   audioManager: {fileID: 0}
+  firePrefab: {fileID: 6183229974304848337, guid: 19f244443eb3a014d919e081754b3c4f, type: 3}
+  fireboltAnim: {fileID: 0}
   attackDamage: 10
   attackRange: 1.5
   position: {x: 0, y: 0, z: 0}

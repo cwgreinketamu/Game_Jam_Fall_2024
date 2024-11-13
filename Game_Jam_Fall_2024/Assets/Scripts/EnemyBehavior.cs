@@ -49,6 +49,10 @@ public abstract class EnemyBehavior : MonoBehaviour
 
     public AudioSource waterHitSound;
     public GameObject audioManager;
+
+    public GameObject firePrefab;
+    
+    public Animator fireboltAnim;
     // Abstract methods for specific enemy types to implement
     protected abstract void AttackPlayer();
 
@@ -70,6 +74,9 @@ public abstract class EnemyBehavior : MonoBehaviour
         boxCollider2D = GetComponent<BoxCollider2D>();
         progressionManager = GameObject.FindWithTag("Progression");
         scoreScript = GameObject.FindGameObjectWithTag("Score").GetComponent<ScoreScript>();
+
+        fireboltAnim = firePrefab.GetComponent<Animator>();
+        
     }
 
     protected virtual void Update()
@@ -113,17 +120,26 @@ public abstract class EnemyBehavior : MonoBehaviour
         // Check if the projectile hits the player
         if (collision.gameObject.CompareTag("PlayerProjectile") || collision.gameObject.CompareTag("Fire") || collision.gameObject.CompareTag("Ice") || collision.gameObject.CompareTag("Water") || collision.gameObject.CompareTag("Lightning"))
         {
+
             Debug.Log("Player hit enemy!");
             collision.gameObject.GetComponent<Collider2D>().enabled = false;
+            collision.gameObject.GetComponent<Animator>().SetBool("Hit", true);
 
             if (collision.gameObject.CompareTag("Fire"))
             {
 
                 if (particlePrefab != null)
                 {
+                    //fireboltAnim.SetBool("Hit", true);
                     GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
                     var main = particle.GetComponent<ParticleSystem>().main;
-                    main.startColor = Color.red;
+                    main.startColor = new Color(1.0f, 0.5f, 0.0f); // RGB values for orange
+
+                    var emission = particle.GetComponent<ParticleSystem>().emission;
+                    emission.rateOverTime = 10000;
+
+                    var shape = particle.GetComponent<ParticleSystem>().shape;
+                    shape.shapeType = ParticleSystemShapeType.Circle;
                 }
                 audioManager.GetComponent<AudioManager>().playSound(fireHitSound);
                 TakeDamage(100, "Fire");
@@ -161,7 +177,7 @@ public abstract class EnemyBehavior : MonoBehaviour
                 TakeDamage(1000, "Lightning");
             }
 
-            CoroutineManager.Instance.StartManagedCoroutine(DestroyAfterDelay(collision.gameObject, 0.5f));
+            CoroutineManager.Instance.StartManagedCoroutine(DestroyAfterDelay(collision.gameObject, 0.3f));
         }
     }
 

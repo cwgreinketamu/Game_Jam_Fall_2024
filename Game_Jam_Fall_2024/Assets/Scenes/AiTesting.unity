@@ -2518,7 +2518,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1406616071}
@@ -2595,7 +2595,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1553734040
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2676,7 +2676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireboltPrefab: {fileID: 6183229974304848337, guid: 19f244443eb3a014d919e081754b3c4f, type: 3}
-  flamethrowerPrefab: {fileID: 687243596309652957, guid: 836f4126766403f44a82ce354af8a0e9, type: 3}
+  flamethrowerPrefab: {fileID: 6183229974304848337, guid: 19f244443eb3a014d919e081754b3c4f, type: 3}
   tsunamiPrefab: {fileID: 1212679923401029666, guid: 66f143d79ac1efb4b8997ce84e5bbb8c, type: 3}
   explosionPrefab: {fileID: 8173048856951277102, guid: 3bfb6cda7f0a43947b8d39996d509e23, type: 3}
   coldBeamPrefab: {fileID: 2675547851349163170, guid: 2460f8df7e59c7c419fc492e3cff95e4, type: 3}
