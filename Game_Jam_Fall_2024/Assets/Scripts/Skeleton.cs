@@ -38,8 +38,9 @@ public class Skeleton : EnemyBehavior
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         //play animation
         movementSpeed = 0f;
-        if (player != null)
+        if (player != null && base.aiPath.desiredVelocity.x < 0.01f)
         {
+            base.aiPath.maxSpeed = 0;
             //Play the shoot animation
             anim.SetTrigger("Attack");
             float movementx = GetComponent<Pathfinding.AIPath>().desiredVelocity.x;

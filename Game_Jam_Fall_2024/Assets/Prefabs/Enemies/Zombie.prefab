@@ -144,7 +144,7 @@ MonoBehaviour:
   repathRateCompatibility: NaN
   canSearchCompability: 0
   orientation: 1
-  enableRotation: 1
+  enableRotation: 0
   autoRepath:
     mode: 2
     interval: 0.5
@@ -156,7 +156,7 @@ MonoBehaviour:
   rotationSpeed: 180
   slowdownDistance: 1
   pickNextWaypointDist: 2
-  endReachedDistance: 2
+  endReachedDistance: 1
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -278,7 +278,7 @@ MonoBehaviour:
   firePrefab: {fileID: 6183229974304848337, guid: 19f244443eb3a014d919e081754b3c4f, type: 3}
   fireboltAnim: {fileID: 0}
   attackDamage: 10
-  attackRange: 1.5
+  attackRange: 2
   position: {x: 0, y: 0, z: 0}
 --- !u!50 &-1404638277601594289
 Rigidbody2D:
@@ -306,4 +306,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

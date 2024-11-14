@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         }
 
         animator = GetComponent<Animator>();
-    
+
     }
 
     void Update()
@@ -78,7 +78,10 @@ public class Player : MonoBehaviour
     {
         // Move the player using Rigidbody2D for smoother and more stable physics updates
         rb.velocity = direction * speed;
-        animator.SetBool("Running", direction != Vector2.zero);
+        if (animator != null)
+        {
+            animator.SetBool("Running", direction != Vector2.zero);
+        }
     }
 
     public void TakeDamage(float damage)

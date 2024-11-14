@@ -125,7 +125,10 @@ public class Attack : MonoBehaviour
 
     private void CastSpell()
     {
-        animator.SetTrigger("Attack");
+        if (animator != null)
+        {
+            animator.SetTrigger("Attack");
+        }
         Debug.Log("Casting spell with buffer: " + string.Join(", ", spellBuffer));
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

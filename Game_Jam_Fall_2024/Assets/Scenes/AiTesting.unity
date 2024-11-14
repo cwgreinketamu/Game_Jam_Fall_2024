@@ -304,6 +304,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
+      propertyPath: attackRange
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
       propertyPath: iceHitSound
       value: 
       objectReference: {fileID: 852776707}
@@ -334,6 +338,18 @@ PrefabInstance:
     - target: {fileID: 5093934756730701539, guid: a79830861a6e50a429ec384b897e4678, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8720718363107364024, guid: a79830861a6e50a429ec384b897e4678, type: 3}
+      propertyPath: maxSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8720718363107364024, guid: a79830861a6e50a429ec384b897e4678, type: 3}
+      propertyPath: enableRotation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8720718363107364024, guid: a79830861a6e50a429ec384b897e4678, type: 3}
+      propertyPath: endReachedDistance
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -468,95 +484,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1001 &238719519
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3202149983203684414, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202149983203684414, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -4.93
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202149983203684414, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202149983203684414, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202149983203684414, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202149983203684414, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202149983203684414, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202149983203684414, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202149983203684414, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202149983203684414, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: health
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: iceHitSound
-      value: 
-      objectReference: {fileID: 852776707}
-    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: AudioManager
-      value: 
-      objectReference: {fileID: 1469903208}
-    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: audioManager
-      value: 
-      objectReference: {fileID: 1469903208}
-    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: fireHitSound
-      value: 
-      objectReference: {fileID: 1128789605}
-    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: waterHitSound
-      value: 
-      objectReference: {fileID: 1332492014}
-    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: damagePopupPrefab
-      value: 
-      objectReference: {fileID: 3062278451857983260, guid: a48ca2345c003fc41a6e63b8d239ef4d, type: 3}
-    - target: {fileID: 5093934756730701539, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_Name
-      value: Zombie (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5093934756730701539, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a79830861a6e50a429ec384b897e4678, type: 3}
 --- !u!1 &329182179
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,7 +882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACQn+uI1y5PXAIAABMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMziVjDGmS3lpDSA8kTGgnF1+EtMYaZMmjjwDJ8N+7km3s0ukJ8d7b3berlT+JULYG5rRZGsFXmgP5NiLhTL6MevIJjnSn1UZ8QKd5E9yVQUSj5pU6oRGfhDCrK3BGsO9qJ4M4QdArUWhTLfgOMm2dRbig0gJSRrsQrRD6HJEj/owfQsgJT+ldOH3g6SEZnfHIQDkwvbQTdrJG5RWTtKqBB8u9eHZJextlCptpFcE401IK2zoh7lTHTjNaW499oIALip3F8pObFIESxK50IeEw/KUoLLjWlKGnuTA4oiYv+aGbuVXU7htn71T6UOnrLJpqcq7+oceTSBdGV09d2UkSSrhSsP0rPTFq3WCuQ3g+cB7nc6ByT7cS3kpQz3pptFccSWd8CPUW0nn/99JZVgLb93hj9Qr09f9vJ/Rwjs0fMymqbaBuZg2wkToOPN49GLyan2g4boZtUyAaXPy28IvuhivUEo/CWIdU26UK9rbamyAliziz0I13mTYKItyarkFR6U5rTOOub/CKG5S9Yh5peCxt8Zbr3sBVSIR7fZJcUWt9uFyWLfVhBbZ88U4KBb3pQDzjnDKtVLNgw5l0YRtvCsoGYTsv+N+rRZI0mXI6u59MH26n23Q6vit4waa8SO/uGRRpQeLuCYV9UrlujLbjwVtTfXKFe9Z9Q0ZLQ+u47NzQw1J8VHowcqEKvWEGQL00GS7GwWARfJZ8wQUOaAPOCRXvm3zmRGq2B55fEuWx08XRGZr3WXJSi3ftApKTLH40chLgyy6vDbwLOITiXbIzOf8BUEsDBBQAAAgIAACQn+utFbWBbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSgZGBcUqiiYWhsaWpcZKRsa55WkpasnFKmpG5RXJqmlGaUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAACQn+uI1y5PXAIAABMFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACQn+utFbWBbQAAAHgAAAAJACQAAAAAAAAAAAAAAKkCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAYQMAAAAA
+    dataString: UEsDBBQAAAgIAACQn+v5J1utXAIAABUFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3GGNqE3lqHkB5ImJBOLr4IaY01yJJHHwHC8N+7km3s0ukJ8d7b1dsP+USEsjUwp83CCL7UHMj3EQln8mXUk09woFut1uITOs274K4MIho1r9QJjfg4hFldgTOC/VBbGcQJgl6JQptqzreQaesswgWVFpAy2oVohdBpRA74czMLIUc8pXfh9ImnWTI645GBcmB6aSfsZI3KKyZpVQMPlntxmnTycdIIFZbTaoJ1pqUUtvVC3LGOtWa0th4rQQEXFGuLBsa3KQIliG3pQu5h+EtRWHCtLUOPD8Jgk5q85KduOldRu2u8fVDpw03fptFUk3P5D30zjnRhdPXUXTuOJblSsN0rPTJq3aCzQ/hh4Dx2aE/ljm4kvJegnvXCaK84ks74EOotpA/930tlWQls1+ON1SvQ1/+fT6jhHIs/ZFJUm0DdThtgLXVseJw+GBzNLzQcd8O2KRANLn5beKPb4RK1xKMw1iHVVqmCvY32JkjJPPYsVONdpo2CCLema1BUuuMK07jrCV5xg2uvmEcankt7ect1r+AqJMK9PkmuqJXeX4ZlS71fgi1fvJNCQW86EM/Yp0wr1SzYsCdd2NqbgrJB2NYL/vdqkSRNJpxO78eT2dfJJp3c3BW8YBNepHf3DIq0IHH3hMI6qVw1Rtv24NRUn1zhnnVfkdHC0DouOzd0vxCflR60XKhCr5kBUC9NhotxMHgJPks+5wIbtAbnhIrzJqecSM12wPNLojxWOj84Q/M+S05q8aFdQHKSxc9GTgJ82eWVgQ8B+3B5l+xMzn8AUEsDBBQAAAgIAACQn+utFbWBbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSgZGBcUqiiYWhsaWpcZKRsa55WkpasnFKmpG5RXJqmlGaUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAACQn+v5J1utXAIAABUFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACQn+utFbWBbQAAAHgAAAAJACQAAAAAAAAAAAAAAKkCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAYQMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -2712,6 +2639,7 @@ MonoBehaviour:
   iceice: {fileID: 1707835849}
   audioManager: {fileID: 1469903208}
   prevSpell: none
+  animator: {fileID: 0}
 --- !u!114 &1553734043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4019,7 +3947,6 @@ SceneRoots:
   - {fileID: 2097449579}
   - {fileID: 864765873820943620}
   - {fileID: 186218223}
-  - {fileID: 238719519}
   - {fileID: 925305274}
   - {fileID: 2139956924}
   - {fileID: 1469903210}
