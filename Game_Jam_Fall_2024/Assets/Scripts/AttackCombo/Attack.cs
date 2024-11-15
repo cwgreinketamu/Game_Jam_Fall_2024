@@ -74,7 +74,7 @@ public class Attack : MonoBehaviour
 
 
 
-
+    
     void Start()
     {
         timeSinceLastAttack = attackCooldown;  // Allow immediate attack
@@ -303,7 +303,7 @@ public class Attack : MonoBehaviour
         }
         else{
             Vector3 spawnPos = transform.position;
-            // spawnPos += new Vector3(0, 3f, 0);
+            //spawnPos += new Vector3(0, 3f, 0);
             Quaternion rotation = Quaternion.LookRotation(Vector3.forward, direction);
                 if(type == "Fire"){
                 // Instantiate the projectile at the desired position without rotation
