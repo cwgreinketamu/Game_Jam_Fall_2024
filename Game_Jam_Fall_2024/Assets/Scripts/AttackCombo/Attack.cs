@@ -132,6 +132,7 @@ public class Attack : MonoBehaviour
         Debug.Log("Casting spell with buffer: " + string.Join(", ", spellBuffer));
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
         Vector3 directionToMouse = (mousePos - transform.position).normalized;
 
         if (spellBuffer.Count == 1)
