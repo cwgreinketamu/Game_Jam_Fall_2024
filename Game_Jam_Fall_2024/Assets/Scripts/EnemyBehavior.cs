@@ -134,6 +134,7 @@ public abstract class EnemyBehavior : MonoBehaviour
                     GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
                     var main = particle.GetComponent<ParticleSystem>().main;
                     main.startColor = new Color(1.0f, 0.5f, 0.0f); // RGB values for orange
+                    main.startSize = 0.1f;
 
                     var emission = particle.GetComponent<ParticleSystem>().emission;
                     emission.rateOverTime = 10000;
@@ -151,6 +152,12 @@ public abstract class EnemyBehavior : MonoBehaviour
                     GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
                     var main = particle.GetComponent<ParticleSystem>().main;
                     main.startColor = Color.blue;
+                    main.startSize = 0.1f;
+                    var emission = particle.GetComponent<ParticleSystem>().emission;
+                    emission.rateOverTime = 10000;
+
+                    var shape = particle.GetComponent<ParticleSystem>().shape;
+                    shape.shapeType = ParticleSystemShapeType.Circle;
                 }
                 audioManager.GetComponent<AudioManager>().playSound(waterHitSound);
                 TakeDamage(700, "Water");
@@ -162,6 +169,12 @@ public abstract class EnemyBehavior : MonoBehaviour
                     GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
                     var main = particle.GetComponent<ParticleSystem>().main;
                     main.startColor = Color.cyan;
+                    main.startSize = 0.1f;
+                    var emission = particle.GetComponent<ParticleSystem>().emission;
+                    emission.rateOverTime = 10000;
+
+                    var shape = particle.GetComponent<ParticleSystem>().shape;
+                    shape.shapeType = ParticleSystemShapeType.Circle;
                 }
                 audioManager.GetComponent<AudioManager>().playSound(iceHitSound);
                 TakeDamage(300, "Ice");
@@ -172,7 +185,13 @@ public abstract class EnemyBehavior : MonoBehaviour
                 {
                     GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
                     var main = particle.GetComponent<ParticleSystem>().main;
-                    main.startColor = Color.blue;
+                    main.startColor = Color.yellow;
+                    main.startSize = 0.1f;
+                    var emission = particle.GetComponent<ParticleSystem>().emission;
+                    emission.rateOverTime = 100000;
+
+                    var shape = particle.GetComponent<ParticleSystem>().shape;
+                    shape.shapeType = ParticleSystemShapeType.Circle;
                 }
                 TakeDamage(1000, "Lightning");
             }

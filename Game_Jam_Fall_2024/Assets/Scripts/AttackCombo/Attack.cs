@@ -362,34 +362,52 @@ public class Attack : MonoBehaviour
         instance.tag = "PlayerProjectile";
 
         // Destroy the instance after 'despawnTime' seconds
-        Destroy(instance, despawnTime);
+        Destroy(instance, 0.666f);
+    
     }
 
 
-    private void CastAoePushBack(GameObject prefab, int numProjectiles = 8, float radius = 2.0f, float projectileSpeed = 5.0f)
+private void CastAoePushBack(GameObject prefab, int numProjectiles = 8, float radius = 2.0f, float projectileSpeed = 5.0f)
+{
+    Vector3 playerPos = transform.position;
+    float angleStep = 360f / numProjectiles;
+
+    for (int i = 0; i < numProjectiles; i++)
     {
-        Vector3 playerPos = transform.position;
-        float angleStep = 360f / numProjectiles;
-
-        for (int i = 0; i < numProjectiles; i++)
-        {
-            float angle = i * angleStep * Mathf.Deg2Rad;
-            Vector3 spawnPos = new Vector3(
-                playerPos.x + Mathf.Cos(angle) * radius,
-                playerPos.y + Mathf.Sin(angle) * radius,
-                playerPos.z
-            );
-            GameObject projectile = Instantiate(prefab, spawnPos, Quaternion.identity);
-            Vector3 directionToProjectile = (spawnPos - playerPos).normalized;
-            projectile.GetComponent<Rigidbody2D>().velocity = directionToProjectile * projectileSpeed;
-
-            // Ensure collision with enemies
-            projectile.tag = "PlayerProjectile";
-
-            Destroy(projectile, 3.0f);
-        }
-        Debug.Log("Cast AOE Push-Back Attack");
+        float angle = i * angleStep * Mathf.Deg2Rad;
+        Vector3 spawnPos = new Vector3(
+            playerPos.x + Mathf.Cos(angle) * radius,
+            playerPos.y + Mathf.Sin(angle) * radius,
+            playerPos.z
+        );
+        InstantiateProjectile(prefab, spawnPos, playerPos, projectileSpeed);     // Cast additional projectiles at 45-degree angles from the original
+        float additionalAngle = (i * angleStep + 45f) * Mathf.Deg2Rad;
+        Vector3 additionalSpawnPos = new Vector3(
+            playerPos.x + Mathf.Cos(additionalAngle) * radius,
+            playerPos.y + Mathf.Sin(additionalAngle) * radius,
+            playerPos.z
+        );
+        InstantiateProjectile(prefab, additionalSpawnPos, playerPos, projectileSpeed);
     }
+    Debug.Log("Cast AOE Push-Back Attack");
+}
+
+private void InstantiateProjectile(GameObject prefab, Vector3 spawnPos, Vector3 playerPos, float projectileSpeed)
+{
+    GameObject projectile = Instantiate(prefab, spawnPos, Quaternion.identity);
+    Vector3 directionToProjectile = (spawnPos - playerPos).normalized;
+    projectile.GetComponent<Rigidbody2D>().velocity = directionToProjectile * projectileSpeed;
+
+    // Calculate the angle to rotate the projectile
+    float angleDegrees = Mathf.Atan2(directionToProjectile.y, directionToProjectile.x) * Mathf.Rad2Deg;
+    projectile.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleDegrees))  * Quaternion.AngleAxis(90, Vector3.forward);
+
+    // Ensure collision with enemies
+    projectile.tag = "PlayerProjectile";
+
+    Destroy(projectile, 3.0f);
+}
+
 
     private IEnumerator FireContinuous(GameObject prefab, Vector3 direction)
     {
@@ -401,40 +419,45 @@ public class Attack : MonoBehaviour
         }
     }
 
-    private IEnumerator CastIceCone(GameObject prefab, Vector3 direction, float duration, float interval, bool large = false)
+private IEnumerator CastIceCone(GameObject prefab, Vector3 direction, float duration, float interval, bool large = false)
+{
+    float elapsedTime = 0f;
+    while (elapsedTime < duration)
     {
-        float elapsedTime = 0f;
-        while (elapsedTime < duration)
+        int numProjectiles = 5; // Number of projectiles in the cone
+        float coneAngle = 45f; // Total angle of the cone in degrees
+        float angleStep = coneAngle / (numProjectiles - 1); // Angle between each projectile
+
+        for (int i = 0; i < numProjectiles; i++)
         {
-            int numProjectiles = 5; // Number of projectiles in the cone
-            float coneAngle = 45f; // Total angle of the cone in degrees
-            float angleStep = coneAngle / (numProjectiles - 1); // Angle between each projectile
+            // Calculate the angle for this projectile
+            float angle = -coneAngle / 2 + angleStep * i;
+            float angleDegrees = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Vector3 projectileDirection = Quaternion.Euler(0, 0, angle) * direction;
 
-            for (int i = 0; i < numProjectiles; i++)
+            // Instantiate the projectile
+            GameObject projectile = Instantiate(prefab, transform.position, Quaternion.identity);
+
+            if (large)
             {
-                // Calculate the angle for this projectile
-                float angle = -coneAngle / 2 + angleStep * i;
-                Vector3 projectileDirection = Quaternion.Euler(0, 0, angle) * direction;
-
-                // Instantiate the projectile
-                GameObject projectile = Instantiate(prefab, transform.position, Quaternion.identity);
-
-                if (large)
-                {
-                    projectile.transform.localScale *= 2.0f;
-                }
-
-                projectile.GetComponent<Rigidbody2D>().velocity = projectileDirection * speed;
-                projectile.tag = "Ice";
-
-                // Destroy the projectile after 'despawnTime' seconds
-                Destroy(projectile, despawnTime);
+                projectile.transform.localScale *= 2.0f;
             }
 
-            elapsedTime += interval;
-            yield return new WaitForSeconds(interval);
+            // Calculate the angle to rotate the projectile
+
+            // projectile.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleDegrees));
+
+            projectile.GetComponent<Rigidbody2D>().velocity = projectileDirection * speed;
+            projectile.tag = "Ice";
+
+            // Destroy the projectile after 'despawnTime' seconds
+            Destroy(projectile, despawnTime);
         }
+
+        elapsedTime += interval;
+        yield return new WaitForSeconds(interval);
     }
+}
 
     public void AddSpell(string spellName)
     {
@@ -489,63 +512,144 @@ public class Attack : MonoBehaviour
 
     }
 
-    private IEnumerator ChainLightningCoroutine(Vector3 positionVector, List<GameObject> hitEnemies){
-        GameObject currentTarget = FindClosestEnemy(positionVector, hitEnemies);
-        for(int i = 0; i < 3; i++)
-        {
-            if (currentTarget == null)
-            {
-                break;
-            }
-            hitEnemies.Add(currentTarget);
-            currentTarget = FindClosestEnemy(currentTarget.transform.position, hitEnemies);
-            // Debug.Log("Hello " + currentTarget.name);
+private IEnumerator ChainLightningCoroutine(Vector3 positionVector, List<GameObject> hitEnemies)
+{
+    GameObject currentTarget = FindClosestEnemy(positionVector, hitEnemies);
+    Vector3 previousPosition = positionVector;
 
-            if (currentTarget != null)
-            {
-                yield return new WaitForSeconds(0.8f);
-                if(currentTarget != null){
-                    audioManager.GetComponent<AudioManager>().playSound(lightningSound);
-                    InstantiateAtPosition(chainLightningPrefab, currentTarget.transform.position, type: "Lightning");
-                    Debug.Log("Chaining to: " + currentTarget.name);
-                }
-
-            }
-
-
-
-        }
-    }
-
-    private GameObject FindClosestEnemy(Vector3 position, List<GameObject> hitEnemies)
+    for (int i = 0; i < 3; i++)
     {
-        Debug.Log("Finding closest enemy");
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(position, 1000.0f);
-        Debug.Log("Found " + hitColliders.Length + " colliders");
-        GameObject closestEnemy = null;
-        float closestDistance = float.MaxValue;
-
-        foreach(Collider2D collider in hitColliders)
+        if (currentTarget == null)
         {
-            Debug.Log("Checking collider: " + collider.gameObject.name);
-            GameObject enemy = collider.gameObject;
-            
-            if (enemy.CompareTag("Enemy") && !hitEnemies.Contains(enemy))
-            {
-                float distance = Vector3.Distance(position, enemy.transform.position);
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestEnemy = enemy;
-                    Debug.Log("Found closest enemy: " + closestEnemy.name);
-                }
-            }
-
+            Debug.LogWarning("Current target is null, breaking the loop.");
+            break;
+        }
+        else{
+            Debug.Log("Current target is: " + currentTarget.name);
         }
 
-        return closestEnemy;
+        hitEnemies.Add(currentTarget);
+        Vector3 currentPosition = currentTarget.transform.position;
+
+        // Create a line renderer to draw the lightning
+        if (chainLightningPrefab == null)
+        {
+            Debug.LogError("chainLightningPrefab is not assigned.");
+            yield break;
+        }
+
+        GameObject lightning = Instantiate(chainLightningPrefab, currentPosition, Quaternion.identity);
+        lightning.GetComponent<SpriteRenderer>().enabled = false;
+        
+
+        if (lightning == null)
+        {
+            Debug.LogError("Failed to instantiate chainLightningPrefab.");
+            yield break;
+        }
+
+        LineRenderer lineRenderer = lightning.GetComponent<LineRenderer>();
+        if (lineRenderer == null)
+        {
+            Debug.LogError("LineRenderer component is missing on chainLightningPrefab.");
+            yield break;
+        }
+
+        // Renderer[] renderers = lightning.GetComponentsInChildren<Renderer>();
+        // foreach (Renderer renderer in renderers)
+        // {
+        //     renderer.enabled = false;
+        // }
+
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(0, previousPosition);
+        lineRenderer.SetPosition(1, currentPosition);
+
+        // Configure the line renderer to look like lightning
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+
+        // Set the color gradient
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(Color.yellow, 0.0f), new GradientColorKey(new Color(1.0f, 0.84f, 0.0f), 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(0.0f, 1.0f) }
+        );
+        lineRenderer.colorGradient = gradient;
+
+        // Add noise to the line renderer
+        int numPoints = 20;
+        lineRenderer.positionCount = numPoints;
+        for (int j = 0; j < numPoints; j++)
+        {
+            float t = (float)j / (numPoints - 1);
+            Vector3 point = Vector3.Lerp(previousPosition, currentPosition, t);
+            point.x += Random.Range(-0.1f, 0.1f);
+            point.y += Random.Range(-0.1f, 0.1f);
+            lineRenderer.SetPosition(j, point);
+        }
+
+        // Play sound and wait before moving to the next target
+        if (audioManager != null)
+        {
+            audioManager.GetComponent<AudioManager>().playSound(lightningSound);
+        }
+        else
+        {
+            Debug.LogWarning("audioManager is not assigned.");
+        }
+
+        yield return new WaitForSeconds(0.8f);
+
+        // Check if the current target is still valid before proceeding
+        if (currentTarget == null)
+        {
+            Debug.LogWarning("Current target has been destroyed, breaking the loop.");
+            break;
+        }
+
+
+        previousPosition = currentPosition;
+        currentTarget = FindClosestEnemy(currentTarget.transform.position, hitEnemies);
+
+        Debug.Log("Chaining to: " + (currentTarget != null ? currentTarget.name : "null"));
+        Destroy(lightning, 1.0f);
+
+    }
+}
+
+private GameObject FindClosestEnemy(Vector3 position, List<GameObject> hitEnemies)
+{
+    Debug.Log("Finding closest enemy");
+    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(position, 1000.0f);
+    Debug.Log("Found " + hitColliders.Length + " colliders");
+    GameObject closestEnemy = null;
+    float closestDistance = float.MaxValue;
+
+    foreach (var hitCollider in hitColliders)
+    {
+        GameObject enemy = hitCollider.gameObject;
+        if (hitEnemies.Contains(enemy))
+        {
+            continue;
+        }
+
+        // Check if the GameObject has the "Enemy" tag
+        if (!enemy.CompareTag("Enemy"))
+        {
+            continue;
+        }
+
+        float distance = Vector3.Distance(position, enemy.transform.position);
+        if (distance < closestDistance)
+        {
+            closestDistance = distance;
+            closestEnemy = enemy;
+        }
     }
 
+    return closestEnemy;
+}
     private void ChangeCursor(Texture2D cursorTexture)
     {
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
