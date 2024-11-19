@@ -52,6 +52,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Cave Floor
+    uniqueID: 2087846607
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
