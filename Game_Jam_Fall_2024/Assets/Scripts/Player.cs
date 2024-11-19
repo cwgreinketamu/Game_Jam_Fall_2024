@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     private StatsManagerScript statsManager;
 
     private Animator animator;
-
+    private SpriteRenderer spriteRenderer;
 
 
     void Start()
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         }
 
         animator = GetComponent<Animator>();
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -59,6 +59,14 @@ public class Player : MonoBehaviour
 
         // Apply movement
         Move(direction);
+        if (horizontalInput < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (horizontalInput > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
 
         if (Input.GetKey(KeyCode.Mouse0))
         {

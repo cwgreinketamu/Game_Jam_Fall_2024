@@ -70,7 +70,7 @@ public class Attack : MonoBehaviour
 
     [SerializeField] private string prevSpell = "none";
 
-    public Animator animator;
+    private Animator animator;
 
 
 
@@ -78,6 +78,7 @@ public class Attack : MonoBehaviour
     void Start()
     {
         timeSinceLastAttack = attackCooldown;  // Allow immediate attack
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -128,6 +129,11 @@ public class Attack : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Attack");
+            Debug.Log("Attack set");
+        }
+        else
+        {
+            Debug.Log("anim not set");
         }
         Debug.Log("Casting spell with buffer: " + string.Join(", ", spellBuffer));
 
