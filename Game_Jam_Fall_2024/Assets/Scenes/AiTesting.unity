@@ -22581,6 +22581,8 @@ MonoBehaviour:
   particlePrefab: {fileID: 6143056731923031691, guid: 13c4d6779e0d45443966a892bc251582, type: 3}
   GameOverFade: {fileID: 0}
   healthBarScript: {fileID: 0}
+  deathZoominSound: {fileID: 0}
+  deathSound: {fileID: 0}
 --- !u!114 &1553734042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24097,3 +24099,4 @@ SceneRoots:
   - {fileID: 865169135}
   - {fileID: 1472173600}
   - {fileID: 1978470406}
+  - {fileID: 281977987}
