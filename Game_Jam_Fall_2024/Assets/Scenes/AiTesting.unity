@@ -21308,7 +21308,7 @@ MonoBehaviour:
   minDistance: 20
   postMinDistance: 40
   clickTime: 0
-  clickThreshold: 0.5
+  clickThreshold: 0.2
   attackScript: {fileID: 0}
   completeSpell: {fileID: 2049296258}
 --- !u!4 &891697177

@@ -23,7 +23,7 @@ public class SpellcastingInput : MonoBehaviour
     private Dictionary<string, string> map = new Dictionary<string, string>(); //dirSequence, rune
 
     [SerializeField] private float clickTime = 0f;
-    [SerializeField] private float clickThreshold = 0.2f;
+    [SerializeField] private float clickThreshold = 0.7f;
 
     [SerializeField] private Attack attackScript;
 
@@ -37,8 +37,14 @@ public class SpellcastingInput : MonoBehaviour
         flag = true;
         dirSequence = "";
         map.Add("53", "Fire"); //add runes like this until i find a better way
+        map.Add("63", "Fire");
+        map.Add("61", "Fire");
         map.Add("35", "Ice");
+        map.Add("25", "Ice");
+        map.Add("27", "Ice");
         map.Add("31", "Lightning");
+        map.Add("41", "Lightning");
+        map.Add("47", "Lightning");
 
         attackScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Attack>();
     }
