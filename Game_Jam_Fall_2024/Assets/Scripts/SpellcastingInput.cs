@@ -23,7 +23,7 @@ public class SpellcastingInput : MonoBehaviour
     private Dictionary<string, string> map = new Dictionary<string, string>(); //dirSequence, rune
 
     [SerializeField] private float clickTime = 0f;
-    [SerializeField] private float clickThreshold = 0.5f;
+    [SerializeField] private float clickThreshold = 0.2f;
 
     [SerializeField] private Attack attackScript;
 

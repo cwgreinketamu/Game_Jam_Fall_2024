@@ -24,7 +24,7 @@ public class Spawner : MonoBehaviour
     public float spawnInterval = 5f;
     private float timer = 0f;
 
-    public float difficultyIncreaseRate = 0.1f;
+    public float difficultyIncreaseRate = 0.05f;
     public float minSpawnInterval = 3f;
 
     public Vector2 spawnAreaMin;
@@ -42,6 +42,10 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
+
+        // Decrease the spawn interval over time
+        spawnInterval = Mathf.Max(minSpawnInterval, spawnInterval - difficultyIncreaseRate * Time.deltaTime);
+
         if (timer <= 0f)
         {
             Vector2 randomPosition = new Vector2(Random.Range(spawnAreaMin.x, spawnAreaMax.x), Random.Range(spawnAreaMin.y, spawnAreaMax.y));
@@ -53,7 +57,6 @@ public class Spawner : MonoBehaviour
             enemyPrefab.GetComponent<EnemyBehavior>().damagePopupPrefab = damagePopupPrefab;
             Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
             timer = spawnInterval;
-            spawnInterval = Mathf.Max(minSpawnInterval, spawnInterval - difficultyIncreaseRate);
         }
     }
 }

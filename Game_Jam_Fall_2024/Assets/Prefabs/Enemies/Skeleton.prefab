@@ -312,6 +312,7 @@ MonoBehaviour:
   movementSpeed: 3
   anim: {fileID: 3457243966433918634}
   rb: {fileID: 611959206531483590}
+  bowSound: {fileID: 1714263677901100562, guid: 95e3ac6b52c9b414a9385c102099958b, type: 3}
 --- !u!95 &3457243966433918634
 Animator:
   serializedVersion: 5

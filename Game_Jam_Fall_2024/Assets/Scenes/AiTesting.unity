@@ -20687,7 +20687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.25532556, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -22607,19 +22607,19 @@ MonoBehaviour:
   despawnTime: 3
   attackCooldown: 1
   spellBuffer: []
-  fireCursor: {fileID: 2800000, guid: e23abd4962197b540b3cc99c95e4bb4f, type: 3}
-  lightningCursor: {fileID: 2800000, guid: 5c7c362d0253b7c4d81e2e36daa26d01, type: 3}
+  fireCursor: {fileID: 2800000, guid: 12cdb77e0ebdd854883d0ba3e655dc4a, type: 3}
+  lightningCursor: {fileID: 2800000, guid: 26996c59cf42c804bb6c954aaec3fa74, type: 3}
   defaultCursor: {fileID: 2800000, guid: 0c9f21efb34190247879648af0d332dd, type: 3}
-  iceCursor: {fileID: 2800000, guid: 11f9fb51713f66d46a9e97652dfb6cd5, type: 3}
-  firelightningCursor: {fileID: 2800000, guid: 14f52c688a10c6f41b8cb9aef228c12c, type: 3}
+  iceCursor: {fileID: 2800000, guid: 72a2aa4ea2328ac4ca0f203b6ec96eb6, type: 3}
+  firelightningCursor: {fileID: 2800000, guid: 4ecc51f976f64c24ab73761ae524e04d, type: 3}
   fireiceCursor: {fileID: 2800000, guid: a701df071929a7b4bb0626c71b7eef8d, type: 3}
-  icelightningCursor: {fileID: 2800000, guid: d9e57c6ec28e9ba48b20300c06c0a9d6, type: 3}
+  icelightningCursor: {fileID: 2800000, guid: af53e197530a6574ca77a7382991ace3, type: 3}
   icefireCursor: {fileID: 2800000, guid: f49da20fb4452a9479191a6f03bd9210, type: 3}
-  lightningiceCursor: {fileID: 2800000, guid: 083b32d02e638604fbb6548add556276, type: 3}
-  lightningfireCursor: {fileID: 2800000, guid: f2c9a565969121d4eb50af6ec575bfab, type: 3}
+  lightningiceCursor: {fileID: 2800000, guid: e47fb08587395ff47a56c85e23ccf07f, type: 3}
+  lightningfireCursor: {fileID: 2800000, guid: 4422a47ad2ff3614ca17e091b634f541, type: 3}
   firefireCursor: {fileID: 2800000, guid: e23abd4962197b540b3cc99c95e4bb4f, type: 3}
   iceiceCursor: {fileID: 2800000, guid: 11f9fb51713f66d46a9e97652dfb6cd5, type: 3}
-  lightninglightningCursor: {fileID: 2800000, guid: 5c7c362d0253b7c4d81e2e36daa26d01, type: 3}
+  lightninglightningCursor: {fileID: 2800000, guid: 41283104cb782b1449fb49f973a2d7ac, type: 3}
   fireballSound: {fileID: 223746283}
   fireballhitSound: {fileID: 1128789605}
   lightningSound: {fileID: 2007745366}
@@ -23175,6 +23175,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1978470406
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7400715440402361178, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400715440402361178, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400715440402361178, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400715440402361178, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400715440402361178, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400715440402361178, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400715440402361178, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400715440402361178, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400715440402361178, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400715440402361178, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7952675516730260359, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
+      propertyPath: m_Name
+      value: healthOrbPrefab
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02a01aa265e1aab40899e565072a6cd4, type: 3}
 --- !u!1 &1978712414
 GameObject:
   m_ObjectHideFlags: 0
@@ -24039,4 +24096,4 @@ SceneRoots:
   - {fileID: 1120856303}
   - {fileID: 865169135}
   - {fileID: 1472173600}
-  - {fileID: 281977987}
+  - {fileID: 1978470406}

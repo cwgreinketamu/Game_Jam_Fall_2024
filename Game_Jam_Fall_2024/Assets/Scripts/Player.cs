@@ -31,6 +31,10 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
+    public AudioSource deathZoominSound;
+
+    public AudioSource deathSound;
+
 
     void Start()
     {
@@ -162,6 +166,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    private IEnumerator PlayDeathSound()
+    {
+        deathZoominSound.Play();
+        yield return new WaitForSeconds(1f);
+        deathZoominSound.Stop();
+    }
     private IEnumerator ZoomInOnDeath()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -172,6 +182,7 @@ public class Player : MonoBehaviour
 
         float elapsed = 0f;
 
+        StartCoroutine(PlayDeathSound());
         while(elapsed < duration)
         {
             mainCamera.orthographicSize = Mathf.Lerp(startSize, targetSize, elapsed / duration);
@@ -190,6 +201,7 @@ public class Player : MonoBehaviour
             SetRandomParticleColors(particle.GetComponent<ParticleSystem>(),5000);
             
         }
+        deathSound.Play();
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
         yield return new WaitForSeconds(1f);

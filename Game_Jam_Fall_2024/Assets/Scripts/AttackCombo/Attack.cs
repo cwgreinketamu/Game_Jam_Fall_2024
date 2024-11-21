@@ -185,7 +185,7 @@ public class Attack : MonoBehaviour
                 Debug.Log("Cast Lightning Bolt");
             }
         }
-        else if (spellBuffer.Count == 2)
+        else if (spellBuffer.Count >= 2)
         {
             List<string> sortedBuffer = new List<string>(spellBuffer);
             sortedBuffer.Sort();  // Sort the spells alphabetically
@@ -256,7 +256,7 @@ public class Attack : MonoBehaviour
             else if (sortedBuffer[0] == "Ice" && sortedBuffer[1] == "Lightning")
             {
                 // Ice Lightning - Random projectiles in 4 directions
-                CastAoePushBack(randomIceProjPrefab, 4);
+                StartCoroutine(CastIceLightningWithDelay());
                 if (particlePrefab != null)
                 {
                     GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
@@ -274,7 +274,7 @@ public class Attack : MonoBehaviour
                 // Lightning Lightning - Chain lightning
                 Vector3 positionVector = new Vector3(mousePos.x, mousePos.y, 0);
 
-                InstantiateAtPosition(chainLightningPrefab, positionVector, type: "Lightning");
+                //InstantiateAtPosition(chainLightningPrefab, positionVector, type: "Lightning");
                 audioManager.GetComponent<AudioManager>().playSound(lightningSound);
                 CastChainLightning(positionVector);
                 if (particlePrefab != null)
@@ -295,6 +295,18 @@ public class Attack : MonoBehaviour
         activeCombo = true;
         timeSinceLastAttack = 0f;
         Debug.Log("Spell buffer cleared after casting");
+    }
+
+    private IEnumerator CastIceLightningWithDelay()
+    {
+        CastAoePushBack(randomIceProjPrefab, 4);
+        yield return new WaitForSeconds(0.75f);
+
+        CastAoePushBack(randomIceProjPrefab, 6);
+        yield return new WaitForSeconds(0.75f);
+
+        CastAoePushBack(randomIceProjPrefab, 8);
+        yield return new WaitForSeconds(0.75f);
     }
 
     // Helper function to instantiate directional projectiles
@@ -380,21 +392,25 @@ private void CastAoePushBack(GameObject prefab, int numProjectiles = 8, float ra
 
     for (int i = 0; i < numProjectiles; i++)
     {
-        float angle = i * angleStep * Mathf.Deg2Rad;
-        Vector3 spawnPos = new Vector3(
-            playerPos.x + Mathf.Cos(angle) * radius,
-            playerPos.y + Mathf.Sin(angle) * radius,
-            playerPos.z
-        );
-        InstantiateProjectile(prefab, spawnPos, playerPos, projectileSpeed);     // Cast additional projectiles at 45-degree angles from the original
-        float additionalAngle = (i * angleStep + 45f) * Mathf.Deg2Rad;
-        Vector3 additionalSpawnPos = new Vector3(
-            playerPos.x + Mathf.Cos(additionalAngle) * radius,
-            playerPos.y + Mathf.Sin(additionalAngle) * radius,
-            playerPos.z
-        );
-        InstantiateProjectile(prefab, additionalSpawnPos, playerPos, projectileSpeed);
+    float angle = i * angleStep * Mathf.Deg2Rad;
+    Vector3 spawnPos = new Vector3(
+        playerPos.x + Mathf.Cos(angle) * radius,
+        playerPos.y + Mathf.Sin(angle) * radius,
+        playerPos.z
+    );
+    InstantiateProjectile(prefab, spawnPos, playerPos, projectileSpeed);     // Cast additional projectiles at 45-degree angles from the original
+    float additionalAngle = (i * angleStep + 45f) * Mathf.Deg2Rad;
+    Vector3 additionalSpawnPos = new Vector3(
+        playerPos.x + Mathf.Cos(additionalAngle) * radius,
+        playerPos.y + Mathf.Sin(additionalAngle) * radius,
+        playerPos.z
+    );
+    InstantiateProjectile(prefab, additionalSpawnPos, playerPos, projectileSpeed);
     }
+
+    
+
+
     Debug.Log("Cast AOE Push-Back Attack");
 }
 
@@ -523,7 +539,7 @@ private IEnumerator ChainLightningCoroutine(Vector3 positionVector, List<GameObj
     GameObject currentTarget = FindClosestEnemy(positionVector, hitEnemies);
     Vector3 previousPosition = positionVector;
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 10; i++)
     {
         if (currentTarget == null)
         {
@@ -572,8 +588,8 @@ private IEnumerator ChainLightningCoroutine(Vector3 positionVector, List<GameObj
         lineRenderer.SetPosition(1, currentPosition);
 
         // Configure the line renderer to look like lightning
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
+        lineRenderer.startWidth = 0.5f;
+        lineRenderer.endWidth = 0.5f;
 
         // Set the color gradient
         Gradient gradient = new Gradient();

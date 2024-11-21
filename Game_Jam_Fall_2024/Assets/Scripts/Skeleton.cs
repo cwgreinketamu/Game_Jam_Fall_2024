@@ -13,6 +13,8 @@ public class Skeleton : EnemyBehavior
     public Animator anim; //animator component on skeleton
     public Rigidbody2D rb; //skeleton rigidbody
 
+    public AudioSource bowSound;
+
 
     protected override void ConfigureMovement()
     {
@@ -24,6 +26,7 @@ public class Skeleton : EnemyBehavior
     protected override void AttackPlayer()
     {
         // Check if the cooldown period has passed since the last attack
+        audioManager.GetComponent<AudioManager>().playSound(bowSound);
         if (Time.time > lastAttackTime + attackCooldown && !isDead)
         {
             Debug.Log("Skeleton fires a projectile at the player!");
@@ -42,6 +45,7 @@ public class Skeleton : EnemyBehavior
         {
             base.aiPath.maxSpeed = 0;
             //Play the shoot animation
+
             anim.SetTrigger("Attack");
             float movementx = GetComponent<Pathfinding.AIPath>().desiredVelocity.x;
             float direction_h = movementx / (Mathf.Abs(movementx));
@@ -62,6 +66,7 @@ public class Skeleton : EnemyBehavior
             Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
+                bowSound.Play();
                 rb.velocity = direction * projectileSpeed; // Use Rigidbody2D for movement in 2D space
             }
         }
