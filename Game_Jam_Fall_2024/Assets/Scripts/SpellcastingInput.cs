@@ -23,7 +23,7 @@ public class SpellcastingInput : MonoBehaviour
     private Dictionary<string, string> map = new Dictionary<string, string>(); //dirSequence, rune
 
     [SerializeField] private float clickTime = 0f;
-    [SerializeField] private float clickThreshold = 0f;
+    [SerializeField] private float clickThreshold = 0.7f;
 
     [SerializeField] private Attack attackScript;
 
@@ -55,9 +55,8 @@ public class SpellcastingInput : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0) && flag) //collects tracked points
         {
             clickTime += Time.deltaTime;
-            Debug.Log(clickTime);
             Vector2 mousePos = Input.mousePosition;
-            if (mousePos != lastPos || mousePos == lastPos)
+            if (mousePos != lastPos)
             {
                 points.Add(mousePos);
                 lastPos = mousePos;
