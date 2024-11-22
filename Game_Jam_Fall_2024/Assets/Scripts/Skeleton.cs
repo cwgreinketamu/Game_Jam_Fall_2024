@@ -29,7 +29,7 @@ public class Skeleton : EnemyBehavior
         if (Time.time > lastAttackTime + attackCooldown && !isDead)
         {
                     // Check if the cooldown period has passed since the last attack
-            audioManager.GetComponent<AudioManager>().playSound(bowSound);
+            //audioManager.GetComponent<AudioManager>().playSound(bowSound);
             Debug.Log("Skeleton fires a projectile at the player!");
             // Implement projectile firing logic
             FireProjectile();
