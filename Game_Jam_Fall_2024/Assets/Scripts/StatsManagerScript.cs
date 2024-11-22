@@ -12,7 +12,8 @@ public class StatsManagerScript : MonoBehaviour
     public GameObject timerObject;
     public string scoreText;
     public string timerText;
-
+    public bool firstRun = true;
+    public SpellTutorial tutorialScript;
     public static StatsManagerScript Instance;
 
     private void Awake()
@@ -37,6 +38,15 @@ public class StatsManagerScript : MonoBehaviour
         }
         else if (scene.name == "AiTesting")
         {
+            if (firstRun)
+            {
+                firstRun = false;
+            }
+            else
+            {
+                tutorialScript = GameObject.FindGameObjectWithTag("Player").GetComponent<SpellTutorial>();
+                tutorialScript.EndTutorial();
+            }
             scoreObject = GameObject.FindGameObjectWithTag("Score");
             timerObject = GameObject.FindGameObjectWithTag("Timer");
         }

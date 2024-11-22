@@ -6,7 +6,7 @@ public class XPOrb : MonoBehaviour
 {
     public int xpAmount = 10;  // The amount of XP the orb gives to the player
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if the colliding object is the player
         if (collision.gameObject.CompareTag("Player"))

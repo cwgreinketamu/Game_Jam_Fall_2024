@@ -29,18 +29,25 @@ public class SpellTutorial : MonoBehaviour
 
     void Start()
     {
-        // Get the Attack script attached to the same GameObject
-        attackScript = GetComponent<Attack>();
-
-        spawnScript = spawner.GetComponent<Spawner>();
-
-        if (attackScript == null)
+        if (!tutorialDone)
         {
-            Debug.LogError("No Attack script found on the player.");
-        }
+            // Get the Attack script attached to the same GameObject
+            attackScript = GetComponent<Attack>();
 
-        // Initial dialogue on scene open
-        ShowDialogue("I�ve finally found it...\n\nThe legendary ruins of Spelltrace!\n\nAll that�s left to do now is click and drag over the shape of the ruins and then right-click to confirm for each of the three shapes... (Space to remove text)");
+            spawnScript = spawner.GetComponent<Spawner>();
+
+            if (attackScript == null)
+            {
+                Debug.LogError("No Attack script found on the player.");
+            }
+
+            // Initial dialogue on scene open
+            ShowDialogue("I've finally found it...\n\nThe legendary ruins of Spelltrace!\n\nAll that's left to do now is click and drag over the shape of the ruins and then right-click to confirm for each of the three shapes... (Space to remove text)");
+        }
+        else
+        {
+
+        }
     }
 
     void Update()
@@ -67,9 +74,7 @@ public class SpellTutorial : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                HideDialogue();
-                spawnScript.enabled = true;
-                enabled = false;
+                EndTutorial();
             }
         }
     }
@@ -87,7 +92,7 @@ public class SpellTutorial : MonoBehaviour
 
             if (TutorialConditionsMet())
             {
-                ShowDialogue("The combinations are endless�\n\nI have unlimited power!");
+                ShowDialogue("The combinations are endless...\n\nI have unlimited power!");
                 tutorialDone = true;
             }
         }
@@ -112,7 +117,7 @@ public class SpellTutorial : MonoBehaviour
 
                 if (singleSpellsCast.Count == 3 && !hasShownComboHint)
                 {
-                    ShowDialogue("Maybe I should try and combo 2 different spells together�");
+                    ShowDialogue("Maybe I should try and combo 2 different spells together...");
                     hasShownComboHint = true;
                 }
             }
@@ -180,5 +185,17 @@ public class SpellTutorial : MonoBehaviour
     {
         dialogueText.text = "";
         dialogueComplete = false;
+    }
+
+    public void EndTutorial()
+    {
+        if (dialogueText != null)
+        {
+            HideDialogue();
+        }
+        tutorialDone = true;
+        spawnScript = spawner.GetComponent<Spawner>();
+        spawnScript.enabled = true;
+        enabled = false;
     }
 }

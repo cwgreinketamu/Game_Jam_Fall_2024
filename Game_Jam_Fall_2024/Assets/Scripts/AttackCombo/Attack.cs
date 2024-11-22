@@ -329,7 +329,7 @@ public class Attack : MonoBehaviour
                 projectile = Instantiate(prefab, spawnPos, Quaternion.identity);
 
                 // Apply the rotation to the projectile
-                projectile.transform.rotation = rotation * Quaternion.AngleAxis(90, Vector3.forward);
+                //projectile.transform.rotation = rotation * Quaternion.AngleAxis(90, Vector3.forward);
 
                 // Apply the scale to the projectile
 
