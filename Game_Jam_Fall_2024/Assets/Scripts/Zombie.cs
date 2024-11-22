@@ -43,8 +43,9 @@ public class Zombie : EnemyBehavior
 
     private void CheckAttack()
     {
+        Debug.Log("Zombie attacks the player with melee!");
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
+        
         // If within attack range and cooldown period has passed, attack
         if (distanceToPlayer <= attackRange && Time.time >= lastAttackTime + attackCooldown)
         {
@@ -56,17 +57,18 @@ public class Zombie : EnemyBehavior
         }
         else
         {
+            Debug.Log($"{distanceToPlayer},{attackRange},{lastAttackTime},{attackCooldown}");
             isAttacking = false; // Reset attacking state if out of range
         }
     }
 
     protected override void AttackPlayer()
     {
-        Debug.Log("Zombie attacks the player with melee!");
 
         Player player1 = player.GetComponent<Player>();
         if (player1 != null)
         {
+            Debug.Log("Zombie attacks the player with melee!");
             //Play Attack Animation
             anim.SetTrigger("Attack");
             anim.SetFloat("Speed", 0);
