@@ -379,6 +379,63 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &349481003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 349481005}
+  - component: {fileID: 349481004}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &349481004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349481003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95fd4c913b4dfaa41a7be83df2a6376f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zombiePrefab: {fileID: 5093934756730701539, guid: a79830861a6e50a429ec384b897e4678, type: 3}
+  skeletonPrefab: {fileID: 1048630917583521731, guid: b6dfa074c0680d64abfc87170afb5d97, type: 3}
+  player: {fileID: 1897004105}
+  fireHitSound: {fileID: 1128789605}
+  iceHitSound: {fileID: 852776707}
+  waterHitSound: {fileID: 1332492014}
+  damagePopupPrefab: {fileID: 3062278451857983260, guid: cba137f6fe0d8554f89ccf642fd051a0, type: 3}
+  audioManager: {fileID: 1469903208}
+  spawnInterval: 5
+  difficultyIncreaseRate: 0.05
+  minSpawnInterval: 3
+  spawnAreaMin: {x: 0, y: 0}
+  spawnAreaMax: {x: 0, y: 0}
+--- !u!4 &349481005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349481003}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.70683, y: 32.192722, z: -0.58939487}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &591159231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,6 +1566,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1897004105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4837011809186689897, guid: 3bf79d91b1b199645ab682d896768866, type: 3}
+  m_PrefabInstance: {fileID: 2093429690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1897004106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897004105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eaf409d0bbc9d143bfe9a21597d4601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueText: {fileID: 1276906491}
+  spawner: {fileID: 349481003}
+  textSound: {fileID: 0}
 --- !u!1 &1978712414
 GameObject:
   m_ObjectHideFlags: 0
@@ -2047,6 +2124,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4359111008444687634, guid: 3bf79d91b1b199645ab682d896768866, type: 3}
+      propertyPath: spellSound
+      value: 
+      objectReference: {fileID: 1367932849}
     - target: {fileID: 4791570279964159064, guid: 3bf79d91b1b199645ab682d896768866, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2058,7 +2139,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4837011809186689897, guid: 3bf79d91b1b199645ab682d896768866, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1897004106}
   m_SourcePrefab: {fileID: 100100000, guid: 3bf79d91b1b199645ab682d896768866, type: 3}
 --- !u!1001 &7912552826092182155
 PrefabInstance:
@@ -2240,3 +2324,4 @@ SceneRoots:
   - {fileID: 1469903210}
   - {fileID: 1276906493}
   - {fileID: 2093429690}
+  - {fileID: 349481005}

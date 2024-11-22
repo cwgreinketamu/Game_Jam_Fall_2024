@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
-        healthBarScript = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBarScript>();
+        //healthBarScript = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBarScript>();
         Debug.Log("health start at " + health);
         statsManager = GameObject.FindGameObjectWithTag("StatsManager").GetComponent<StatsManagerScript>();
         if (statsManager != null)

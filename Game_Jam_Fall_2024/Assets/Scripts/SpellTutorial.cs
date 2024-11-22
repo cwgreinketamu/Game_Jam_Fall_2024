@@ -25,6 +25,8 @@ public class SpellTutorial : MonoBehaviour
 
     private Spawner spawnScript;
 
+    public AudioSource textSound;
+
     void Start()
     {
         // Get the Attack script attached to the same GameObject
@@ -38,7 +40,7 @@ public class SpellTutorial : MonoBehaviour
         }
 
         // Initial dialogue on scene open
-        ShowDialogue("I’ve finally found it...\n\nThe legendary ruins of Spelltrace!\n\nAll that’s left to do now is click and drag over the shape of the ruins and then right-click to confirm for each of the three shapes... (Space to remove text)");
+        ShowDialogue("Iï¿½ve finally found it...\n\nThe legendary ruins of Spelltrace!\n\nAll thatï¿½s left to do now is click and drag over the shape of the ruins and then right-click to confirm for each of the three shapes... (Space to remove text)");
     }
 
     void Update()
@@ -85,7 +87,7 @@ public class SpellTutorial : MonoBehaviour
 
             if (TutorialConditionsMet())
             {
-                ShowDialogue("The combinations are endless…\n\nI have unlimited power!");
+                ShowDialogue("The combinations are endlessï¿½\n\nI have unlimited power!");
                 tutorialDone = true;
             }
         }
@@ -110,7 +112,7 @@ public class SpellTutorial : MonoBehaviour
 
                 if (singleSpellsCast.Count == 3 && !hasShownComboHint)
                 {
-                    ShowDialogue("Maybe I should try and combo 2 different spells together…");
+                    ShowDialogue("Maybe I should try and combo 2 different spells togetherï¿½");
                     hasShownComboHint = true;
                 }
             }
@@ -151,6 +153,7 @@ public class SpellTutorial : MonoBehaviour
     {
         dialogueText.text = "";
         isTyping = true;
+        textSound.Play();
         dialogueComplete = false;
 
         foreach (char letter in message)
@@ -166,6 +169,7 @@ public class SpellTutorial : MonoBehaviour
     private void CompleteDialogue()
     {
         // Instantly complete the text display
+        textSound.Stop();
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
         dialogueText.text = dialogueText.text; // Ensure the full text is displayed
         isTyping = false;
