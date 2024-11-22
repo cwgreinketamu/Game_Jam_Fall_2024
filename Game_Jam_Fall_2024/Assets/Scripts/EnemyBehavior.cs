@@ -48,6 +48,8 @@ public abstract class EnemyBehavior : MonoBehaviour
     public AudioSource iceHitSound;
 
     public AudioSource waterHitSound;
+
+   // public AudioSource lightningHitSound;
     public GameObject audioManager;
 
     public GameObject firePrefab;
@@ -193,6 +195,7 @@ public abstract class EnemyBehavior : MonoBehaviour
                     var shape = particle.GetComponent<ParticleSystem>().shape;
                     shape.shapeType = ParticleSystemShapeType.Circle;
                 }
+               // audioManager.GetComponent<AudioManager>().playSound(lightningHitSound);
                 TakeDamage(1000, "Lightning");
             }
 

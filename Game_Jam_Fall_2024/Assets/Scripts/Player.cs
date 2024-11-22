@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
 
     public AudioSource deathSound;
 
+    public AudioSource background;
+
 
     void Start()
     {
@@ -168,6 +170,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator PlayDeathSound()
     {
+        background.Stop();
         deathZoominSound.Play();
         yield return new WaitForSeconds(1f);
         deathZoominSound.Stop();
