@@ -10,6 +10,9 @@ public class Zombie : EnemyBehavior
     private bool isAttacking = false; // Track if the zombie is currently attacking
     public Vector3 position;
 
+    //variables used for animation
+    public Animator anim; //animator component on skeleton
+
     protected override void Start()
     {
         base.Start();
@@ -28,6 +31,13 @@ public class Zombie : EnemyBehavior
         base.GetPosition(transform.position);
         base.Update();
         CheckAttack(); // Check if the zombie can attack the player
+        //animator direction float management
+        //Rigidbody rb = GetComponent<Rigidbody>();
+        //float movementx = rb.velocity.x;
+        float movementx = GetComponent<Pathfinding.AIPath>().desiredVelocity.x;
+        anim.SetFloat("Horizontal", movementx);
+        float speedx = Mathf.Abs(movementx);
+        anim.SetFloat("Speed", speedx);
     }
 
 
@@ -57,9 +67,11 @@ public class Zombie : EnemyBehavior
         Player player1 = player.GetComponent<Player>();
         if (player1 != null)
         {
+            //Play Attack Animation
+            anim.SetTrigger("Attack");
+            anim.SetFloat("Speed", 0);
             player1.TakeDamage(attackDamage);
         }
-
         lastAttackTime = Time.time; // Update the last attack time
     }
 

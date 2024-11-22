@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: dd6f7d063d9268742a8e889075932ccb, type: 3}
-  m_Color: {r: 0.6867925, g: 0.6867925, b: 0.6867925, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -312,7 +312,7 @@ MonoBehaviour:
   movementSpeed: 3
   anim: {fileID: 3457243966433918634}
   rb: {fileID: 611959206531483590}
-  bowSound: {fileID: 1714263677901100562, guid: 95e3ac6b52c9b414a9385c102099958b, type: 3}
+  bowSound: {fileID: 0}
 --- !u!95 &3457243966433918634
 Animator:
   serializedVersion: 5

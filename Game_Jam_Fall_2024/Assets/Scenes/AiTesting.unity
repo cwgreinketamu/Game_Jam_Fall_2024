@@ -20244,21 +20244,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: health
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: attackRange
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
       propertyPath: iceHitSound
       value: 
       objectReference: {fileID: 852776707}
-    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: AudioManager
-      value: 
-      objectReference: {fileID: 1469903208}
     - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
       propertyPath: audioManager
       value: 
@@ -20271,29 +20259,9 @@ PrefabInstance:
       propertyPath: waterHitSound
       value: 
       objectReference: {fileID: 1332492014}
-    - target: {fileID: 4677430607103557657, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: damagePopupPrefab
-      value: 
-      objectReference: {fileID: 3062278451857983260, guid: a48ca2345c003fc41a6e63b8d239ef4d, type: 3}
     - target: {fileID: 5093934756730701539, guid: a79830861a6e50a429ec384b897e4678, type: 3}
       propertyPath: m_Name
       value: Zombie
-      objectReference: {fileID: 0}
-    - target: {fileID: 5093934756730701539, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8720718363107364024, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: maxSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8720718363107364024, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: enableRotation
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8720718363107364024, guid: a79830861a6e50a429ec384b897e4678, type: 3}
-      propertyPath: endReachedDistance
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23162,6 +23130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 1406616072}
   spawner: {fileID: 1120856301}
+  textSound: {fileID: 0}
 --- !u!95 &1553734044
 Animator:
   serializedVersion: 5
@@ -24553,14 +24522,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1553734037}
-    - target: {fileID: 8187346494498399504, guid: b6dfa074c0680d64abfc87170afb5d97, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8187346494498399504, guid: b6dfa074c0680d64abfc87170afb5d97, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8187346494498399504, guid: b6dfa074c0680d64abfc87170afb5d97, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.35
