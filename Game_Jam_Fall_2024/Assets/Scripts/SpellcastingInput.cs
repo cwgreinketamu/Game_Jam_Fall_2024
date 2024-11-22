@@ -57,7 +57,7 @@ public class SpellcastingInput : MonoBehaviour
             clickTime += Time.deltaTime;
             Debug.Log(clickTime);
             Vector2 mousePos = Input.mousePosition;
-            if (mousePos != lastPos || mousePos == lastPos)
+            if (mousePos != lastPos)
             {
                 points.Add(mousePos);
                 lastPos = mousePos;
@@ -82,7 +82,7 @@ public class SpellcastingInput : MonoBehaviour
                 tempSquare.GetComponent<RectTransform>().position = new Vector3(main_camera.ScreenToWorldPoint(mousePos).x, main_camera.ScreenToWorldPoint(mousePos).y, 0);
             }
         }
-        if (Input.GetKeyUp(KeyCode.Mouse0) && flag)
+        if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             if(clickTime >= clickThreshold && points.Count > 2)
             {
@@ -185,13 +185,13 @@ public class SpellcastingInput : MonoBehaviour
                 corners.Remove(corners[j]);
             }
         }
-        /* //uncomment for red squares at corners
-        for (int k = 0; k < corners.Count; k++)
-        {
-            GameObject tempSquare = Instantiate(redSquare, canvas.transform);
-            tempSquare.GetComponent<RectTransform>().position = new Vector3(main_camera.ScreenToWorldPoint(corners[k]).x, main_camera.ScreenToWorldPoint(corners[k]).y, 0);
-        }
-        */
+
+        // for (int k = 0; k < corners.Count; k++)
+        // {
+        //     GameObject tempSquare = Instantiate(redSquare, canvas.transform);
+        //     tempSquare.GetComponent<RectTransform>().position = new Vector3(main_camera.ScreenToWorldPoint(corners[k]).x, main_camera.ScreenToWorldPoint(corners[k]).y, 0);
+        // }
+
         GetDirections(corners);
     }
 
@@ -284,7 +284,7 @@ public class SpellcastingInput : MonoBehaviour
                 Debug.Log("invalid shape");
             }
         }
-        Invoke("ClearDrawing", 1.0f);
+        Invoke("ClearDrawing", 0.2f);
     }
 
     //reverses series of directions by flipping both individual directions and their order

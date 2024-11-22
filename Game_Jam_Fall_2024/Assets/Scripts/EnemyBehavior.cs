@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding; // Reference the Pathfinding namespace if using A* Pathfinding Project
 using TMPro;
+using System.Security.Cryptography;
 
 
 public abstract class EnemyBehavior : MonoBehaviour
