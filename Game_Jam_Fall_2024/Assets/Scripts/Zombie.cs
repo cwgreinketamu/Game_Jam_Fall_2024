@@ -5,8 +5,8 @@ public class Zombie : EnemyBehavior
     public float attackDamage = 10f; // Melee attack damage
     public float attackRange = 1.5f; // Range within which the zombie can attack the player
     private Transform player; // Reference to the player's transform
-    private float attackCooldown = 1f; // Time between attacks
-    private float lastAttackTime; // Time when the last attack was made
+    public float attackCooldown = 1.0f; // Cooldown duration in seconds
+    private float lastAttackTime = 0f; // Time of the last attack
     private bool isAttacking = false; // Track if the zombie is currently attacking
     public Vector3 position;
 
@@ -64,17 +64,20 @@ public class Zombie : EnemyBehavior
 
     protected override void AttackPlayer()
     {
-
-        Player player1 = player.GetComponent<Player>();
-        if (player1 != null)
+        // Check if the cooldown period has passed
+        if (Time.time >= lastAttackTime + attackCooldown)
         {
-            Debug.Log("Zombie attacks the player with melee!");
-            //Play Attack Animation
-            anim.SetTrigger("Attack");
-            anim.SetFloat("Speed", 0);
-            player1.TakeDamage(attackDamage);
+            Player player1 = player.GetComponent<Player>();
+            if (player1 != null)
+            {
+                Debug.Log("Zombie attacks the player with melee!");
+                // Play Attack Animation
+                anim.SetTrigger("Attack");
+                anim.SetFloat("Speed", 0);
+                player1.TakeDamage(attackDamage);
+            }
+            lastAttackTime = Time.time; // Update the last attack time
         }
-        lastAttackTime = Time.time; // Update the last attack time
     }
 
 }
