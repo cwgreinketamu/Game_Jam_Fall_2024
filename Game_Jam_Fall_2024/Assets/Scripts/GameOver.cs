@@ -9,6 +9,7 @@ using TMPro;
 public class GameOver : MonoBehaviour
 {
     public Button RestartButton;
+    public Button QuitButton;
     //[SerializeField] private GameObject score;
     //[SerializeField] private GameObject timer;
     //private StatsManagerScript stats;
@@ -16,6 +17,7 @@ public class GameOver : MonoBehaviour
     void Start()
     {
         RestartButton.onClick.AddListener(RestartGame);
+        QuitButton.onClick.AddListener(OnQuitButton);
         /*
         stats = StatsManagerScript.Instance;
         if (stats == null)
@@ -40,5 +42,11 @@ public class GameOver : MonoBehaviour
     void RestartGame()
     {
         SceneManager.LoadScene("AiTesting");
+    }
+
+    public void OnQuitButton()
+    {
+        Debug.Log("Game quit");
+        Application.Quit();
     }
 }

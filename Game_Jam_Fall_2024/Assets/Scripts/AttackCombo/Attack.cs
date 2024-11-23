@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -139,7 +140,7 @@ public class Attack : MonoBehaviour
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
-        Vector3 directionToMouse = (mousePos - transform.position).normalized;
+        Vector3 directionToMouse = (mousePos - new Vector3(transform.position.x, transform.position.y + 3.5f, transform.position.z)).normalized;
 
         if (spellBuffer.Count == 1)
         {
@@ -224,7 +225,7 @@ public class Attack : MonoBehaviour
             else if (sortedBuffer[0] == "Fire" && sortedBuffer[1] == "Lightning")
             {
                 // Fire Lightning - Big explosion at mouse position
-                InstantiateAtPosition(explosionPrefab, new Vector3(mousePos.x, mousePos.y, 0), type: "Fire");
+                InstantiateAtPosition(explosionPrefab, new Vector3(mousePos.x, mousePos.y - 4, 0), type: "Fire");
                 if (particlePrefab != null)
                 {
                     GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
@@ -322,15 +323,16 @@ public class Attack : MonoBehaviour
         }
         else{
             Vector3 spawnPos = transform.position;
+            spawnPos = new Vector3(spawnPos.x, spawnPos.y + 3.5f, spawnPos.z);
             //spawnPos += new Vector3(0, 3f, 0);
             Quaternion rotation = Quaternion.LookRotation(Vector3.forward, direction);
-                if(type == "Fire"){
+            if(type == "Fire"){
                 // Instantiate the projectile at the desired position without rotation
-                projectile = Instantiate(prefab, spawnPos, Quaternion.identity);
+                projectile = Instantiate(prefab, spawnPos, rotation);
 
                 // Apply the rotation to the projectile
                 projectile.transform.rotation = rotation * Quaternion.AngleAxis(90, Vector3.forward);
-
+                
                 // Apply the scale to the projectile
 
                 projectile.transform.localScale *= 4.0f; // Adjust the scale factor as needed
@@ -387,7 +389,7 @@ public class Attack : MonoBehaviour
 
 private void CastAoePushBack(GameObject prefab, int numProjectiles = 8, float radius = 2.0f, float projectileSpeed = 5.0f)
 {
-    Vector3 playerPos = transform.position;
+    Vector3 playerPos = new Vector3(transform.position.x, transform.position.y + 3.5f, transform.position.z);
     float angleStep = 360f / numProjectiles;
 
     for (int i = 0; i < numProjectiles; i++)

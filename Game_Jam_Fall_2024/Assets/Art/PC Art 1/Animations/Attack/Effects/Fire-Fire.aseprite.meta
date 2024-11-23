@@ -123,8 +123,8 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Fire-Fire_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: -1.0930233}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -143,8 +143,8 @@ ScriptedImporter:
     uvTransform: {x: -17, y: 112}
   - name: Fire-Fire_Frame_1
     originalName: 
-    pivot: {x: 0.49411765, y: -1.1428572}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -163,8 +163,8 @@ ScriptedImporter:
     uvTransform: {x: 82, y: 88}
   - name: Fire-Fire_Frame_2
     originalName: 
-    pivot: {x: 0.5168539, y: -1.1951219}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -183,8 +183,8 @@ ScriptedImporter:
     uvTransform: {x: -14, y: 163}
   - name: Fire-Fire_Frame_3
     originalName: 
-    pivot: {x: 0.46808508, y: -0.39473686}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -203,8 +203,8 @@ ScriptedImporter:
     uvTransform: {x: 84, y: 4}
   - name: Fire-Fire_Frame_4
     originalName: 
-    pivot: {x: 0.51086956, y: -0.16}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2

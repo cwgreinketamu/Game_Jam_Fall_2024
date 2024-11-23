@@ -267,7 +267,7 @@ public class SpellcastingInput : MonoBehaviour
                 }
                 else if (map[dirSequence] == "Lightning")
                 {
-                    main.startColor = Color.blue;
+                    main.startColor = Color.yellow;
                 }
             }
         }
