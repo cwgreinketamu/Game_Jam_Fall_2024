@@ -92,7 +92,7 @@ public class SpellTutorial : MonoBehaviour
 
             if (TutorialConditionsMet())
             {
-                ShowDialogue("The combinations are endless...\n\nI have unlimited power!");
+                ShowDialogue("The combinations are endless...\n\nI have unlimited power! (Press space to continue)");
                 tutorialDone = true;
             }
         }
