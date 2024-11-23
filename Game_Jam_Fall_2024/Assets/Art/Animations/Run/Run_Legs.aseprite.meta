@@ -123,7 +123,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Run_Legs_Frame_0
     originalName: 
-    pivot: {x: 0.21875, y: -0.06666667}
+    pivot: {x: 0.51211256, y: 0.031680297}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -143,7 +143,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 433}
   - name: Run_Legs_Frame_1
     originalName: 
-    pivot: {x: 0.4074074, y: -0.12280702}
+    pivot: {x: 0.5266156, y: 0.25363857}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -163,7 +163,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 191}
   - name: Run_Legs_Frame_2
     originalName: 
-    pivot: {x: 0.3970588, y: -0.20754717}
+    pivot: {x: 0.46016878, y: 0.25297633}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -183,7 +183,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 130}
   - name: Run_Legs_Frame_3
     originalName: 
-    pivot: {x: 0.38356164, y: -0.23076925}
+    pivot: {x: 0.4607197, y: 0.24892712}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -203,7 +203,7 @@ ScriptedImporter:
     uvTransform: {x: 83, y: 4}
   - name: Run_Legs_Frame_4
     originalName: 
-    pivot: {x: 0.40384617, y: -0.28}
+    pivot: {x: 0.52248013, y: 0.2403418}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -223,7 +223,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 256}
   - name: Run_Legs_Frame_5
     originalName: 
-    pivot: {x: 0.3902439, y: -0.14814815}
+    pivot: {x: 0.56687427, y: 0.100201644}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -243,7 +243,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 371}
   - name: Run_Legs_Frame_6
     originalName: 
-    pivot: {x: 0.35820895, y: -0.16363636}
+    pivot: {x: 0.52634585, y: 0.19723761}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -263,7 +263,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 67}
   - name: Run_Legs_Frame_7
     originalName: 
-    pivot: {x: 0.4084507, y: -0.16363636}
+    pivot: {x: 0.5066712, y: 0.12896432}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -283,7 +283,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Run_Legs_Frame_8
     originalName: 
-    pivot: {x: 0.38, y: -0.30612245}
+    pivot: {x: 0.567752, y: 0.21936472}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:

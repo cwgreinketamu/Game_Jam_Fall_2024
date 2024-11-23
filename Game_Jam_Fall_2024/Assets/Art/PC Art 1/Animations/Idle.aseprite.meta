@@ -123,7 +123,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Idle_Frame_0
     originalName: 
-    pivot: {x: 0.32857144, y: -0.051724136}
+    pivot: {x: 0.36114043, y: 0.11591168}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -143,7 +143,7 @@ ScriptedImporter:
     uvTransform: {x: 84, y: 130}
   - name: Idle_Frame_1
     originalName: 
-    pivot: {x: 0.31506848, y: -0.051282056}
+    pivot: {x: 0.3187425, y: 0.109189875}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -163,7 +163,7 @@ ScriptedImporter:
     uvTransform: {x: 177, y: 4}
   - name: Idle_Frame_2
     originalName: 
-    pivot: {x: 0.3, y: -0.050847456}
+    pivot: {x: 0.33017448, y: 0.104854956}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -183,7 +183,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Idle_Frame_3
     originalName: 
-    pivot: {x: 0.3116883, y: -0.052173913}
+    pivot: {x: 0.36045521, y: 0.10642425}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -203,7 +203,7 @@ ScriptedImporter:
     uvTransform: {x: 92, y: 4}
   - name: Idle_Frame_4
     originalName: 
-    pivot: {x: 0.33333334, y: -0.05263158}
+    pivot: {x: 0.35568467, y: 0.10618136}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -223,7 +223,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 130}
   - name: Idle_Frame_5
     originalName: 
-    pivot: {x: 0.33333334, y: -0.052173913}
+    pivot: {x: 0.34888205, y: 0.092430316}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
