@@ -158,7 +158,7 @@ public class SpellTutorial : MonoBehaviour
     {
         dialogueText.text = "";
         isTyping = true;
-        textSound.Play();
+        //textSound.Play();
         dialogueComplete = false;
 
         foreach (char letter in message)
